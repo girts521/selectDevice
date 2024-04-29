@@ -12,7 +12,9 @@
     "@mui/material": "^5.15.15",
     "next": "latest",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-share": "^5.1.0",
+    "react-simple-typewriter": "^5.0.1"
   },
   "engines": {
     "node": ">=18"
