@@ -108,7 +108,7 @@ export default function Post() {
                 <Typography
                   component={"div"}
                   variant="body2"
-                  color="text.secondary"
+                  color="text.primary"
                 >
                   {blogPost.content ? (
                     <div

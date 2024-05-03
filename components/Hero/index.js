@@ -64,7 +64,7 @@ export default function Hero() {
           </Typography>
           <Typography
             textAlign="center"
-            color="text.secondary"
+            color="text.primary"
             sx={{ alignSelf: 'center', width: { sm: '100%', md: '80%' } }}
           >
             Answer a few basic questions and 

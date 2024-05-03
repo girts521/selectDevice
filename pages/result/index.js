@@ -342,12 +342,12 @@ export default function Result() {
               flexDirection: { xs: "column", md: "row" },
               alignSelf: "center",
               textAlign: "center",
-              m: { xs: 8, sm: 12 },
-              p: 7,
+              m: { xs: 3, sm: 7 },
+              p: { xs: 3, sm: 7 },
             }}
           >
             {" "}
-            <ul style={{ listStyleType: "none" }}>{formatText(answer)}</ul>
+            <ul style={{ listStyleType: "none", padding: 0 }}>{formatText(answer)}</ul>
           </Paper>
         )}
         {loading && (
