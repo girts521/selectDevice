@@ -7,6 +7,7 @@ import Hero from "../components/Hero";
 import Blog from "../components/Blog";
 import Footer from "../components/Footer";
 import * as React from "react";
+import { Analytics } from '@vercel/analytics/react';
 
 const darkTheme = createTheme({
   palette: {
@@ -35,6 +36,7 @@ export default function Home() {
           <Footer />
         </Container>
       </ThemeProvider>
+      <Analytics />
     </>
   );
 }
