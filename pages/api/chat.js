@@ -4,7 +4,6 @@ import MistralClient from "@mistralai/mistralai";
 export default async function handler(req, res) {
   const apiKey = process.env.MISTRAL_API_KEY;
   const client = new MistralClient(apiKey);
-  console.log("key: ", apiKey);
 
   if (req.method === "POST") {
     const { filteredResult, params } = req.body;
@@ -24,7 +23,6 @@ export default async function handler(req, res) {
           },
         ],
       });
-      console.log("responding here with: ", chatResponse.choices[0].message.content)
       res.status(200).json({ answer: chatResponse.choices[0].message.content });
     } catch (error) {
       console.error(error);
