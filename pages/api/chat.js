@@ -4,6 +4,7 @@ import MistralClient from "@mistralai/mistralai";
 export default async function handler(req, res) {
   const apiKey = process.env.MISTRAL_API_KEY;
   const client = new MistralClient(apiKey);
+  console.log("key: ", apiKey);
 
   if (req.method === "POST") {
     const { filteredResult, params } = req.body;
