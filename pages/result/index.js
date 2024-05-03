@@ -17,12 +17,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { useRouter } from 'next/router'
 
-
-
-const apiKey = process.env.NEXT_PUBLIC_MISTRAL_API_KEY;
-
-const client = new MistralClient(apiKey);
-
 export default function Result() {
   const [params, setParams] = React.useState({});
   const [filteredResult, setFilteredResult] = React.useState([]);
@@ -37,27 +31,7 @@ export default function Result() {
     if (newParams) {
       setParams(newParams);
     }
-
-    const context = `Always provide information only using this information (never suggest anything thats not in this file, do not provide information if its not in this file): ${JSON.stringify(
-      data.laptops
-    )}`;
-
-    const callChat = async () => {
-      const chatResponse = await client.chat({
-        model: "open-mistral-7b",
-        response_format: { type: "json_object" },
-        messages: [
-          { role: "system", content: context },
-          {
-            role: "user",
-            content:
-              "What is the best laptop for general use? Should be cheap without gpu and with 8GB of ram. Respond only with a json object with exactly the same format as in the provided file, sort it based on the price. Dont include anything except json in your response.",
-          },
-        ],
-      });
-      console.log("Chat:", chatResponse.choices[0].message.content);
-    };
-    // callChat()
+    
   }, []);
 
   React.useEffect(() => {
@@ -189,22 +163,16 @@ export default function Result() {
   const getAnswer = async () => {
     setisDisabled(true);
     setloading(true);
-    const chatResponse = await client.chat({
-      model: "open-mistral-7b",
-      messages: [
-        { role: "system", content: JSON.stringify(filteredResult) },
-        {
-          role: "user",
-          content: `From the laptops provided in the json object, suggest which will be best for these use cases: ${params.useCase.map(
-            (el) => {
-              return `${el} `;
-            }
-          )}. Also explain the reasons why in some detail. But it has to be easy to understand for anyone not very familiar with laptops.`,
-        },
-      ],
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ filteredResult, params }),
     });
-    console.log("Chat:", chatResponse.choices[0].message.content);
-    setAnswer(chatResponse.choices[0].message.content);
+    
+    const data = await response.json();
+    setAnswer(data.answer);
     setloading(false)
   };
 
