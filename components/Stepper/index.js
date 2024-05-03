@@ -123,19 +123,19 @@ export default function HorizontalLinearStepper() {
             newParams.display = null;
             newParams.memory = null;
             newParams.gpu = null;
-            newParams.cpu = [3];
+            newParams.cpu = [3, 5];
           }
           if (el === "office") {
             newParams.ram = [8, 16];
             newParams.display = null;
-            newParams.memory = ["1TB", "2TB"];
+            newParams.memory = ["256GB","512GB","1TB", "2TB"];
             newParams.gpu = null;
             newParams.cpu = [3, 5];
           }
           if (el === "design") {
-            newParams.ram = [16];
+            newParams.ram = [16, 32];
             newParams.display = 2;
-            newParams.memory = ["1TB", "2TB", "4TB", "6TB"];
+            newParams.memory = ["512GB","1TB", "2TB", "4TB", "6TB"];
             newParams.gpu = null;
             newParams.cpu = [5, 7];
           }
@@ -153,10 +153,10 @@ export default function HorizontalLinearStepper() {
             newParams.memory = ["1TB", "2TB", "3TB", "4TB", "5TB"];
             newParams.gpu = [3060, 3080, 3090, 4070, 4080, 4090];
             newParams.cpu = [5, 7, 9];
+            newParams.os = "Windows";
           }
         });
       }
-      console.log(newParams);
       localStorage.setItem('params', JSON.stringify(newParams));
       router.push("/result");
     }
@@ -374,21 +374,21 @@ export default function HorizontalLinearStepper() {
                   <FormControl>
                     <RadioGroup
                       aria-labelledby="portability-question-label-group"
-                      defaultValue={0}
+                      defaultValue={1}
                       name="portability-buttons-group"
                     >
                       <FormControlLabel
-                        value={0}
+                        value={1}
                         control={<Radio onChange={portabilityChangeHandler} />}
                         label="Not important at all. I will mostly work from one location."
                       />
                       <FormControlLabel
-                        value={1}
+                        value={2}
                         control={<Radio onChange={portabilityChangeHandler} />}
                         label="Somewhat important. Will have to travel with it sometimes."
                       />
                       <FormControlLabel
-                        value={2}
+                        value={3}
                         control={<Radio onChange={portabilityChangeHandler} />}
                         label="Very important. Will have to travel with it daily and work from different locations."
                       />
