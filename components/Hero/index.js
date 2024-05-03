@@ -8,7 +8,6 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { Typewriter } from 'react-simple-typewriter'
-import Divider from '@mui/material/Divider';
 import { useRouter } from 'next/router'
 
 export default function Hero() {

@@ -117,6 +117,7 @@ export default function HorizontalLinearStepper() {
       if (portability > 0) newParams.portability = portability;
       if (os) newParams.os = os;
       if (useCase) {
+        newParams.useCase = useCase;
         useCase.map((el) => {
           if (el === "basic") {
             newParams.ram = [8];
@@ -124,6 +125,7 @@ export default function HorizontalLinearStepper() {
             newParams.memory = null;
             newParams.gpu = null;
             newParams.cpu = [3, 5];
+            
           }
           if (el === "office") {
             newParams.ram = [8, 16];
