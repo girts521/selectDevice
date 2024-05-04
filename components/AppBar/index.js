@@ -2,7 +2,7 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import { IconButton } from "@mui/material";
+import { IconButton, Link } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import DrawerList from "../Drawer";
@@ -33,9 +33,8 @@ export default function My_AppBar() {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              News
+             <Link color={"inherit"} underline="none" href="/">My Tech Finder</Link>
             </Typography>
-            <Button color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
       </Box>

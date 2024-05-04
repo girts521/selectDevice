@@ -17,6 +17,10 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { useRouter } from 'next/router'
+import My_AppBar from "../AppBar";
+import Footer from "../Footer";
+
+
 
 
 const steps = ["Budget", "Use case", "Portability", "Operating system"];
@@ -165,7 +169,9 @@ export default function HorizontalLinearStepper() {
   }, [activeStep]);
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <>
+      <My_AppBar />
+    <Box sx={{ width: "100%", maxWidth: "1200px", margin:"auto" }}>
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
@@ -193,7 +199,6 @@ export default function HorizontalLinearStepper() {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
           {activeStep === 0 && (
             <Box
               sx={{
@@ -202,6 +207,7 @@ export default function HorizontalLinearStepper() {
                 alignItems: "center",
                 pt: { xs: 14, sm: 20 },
                 pb: { xs: 8, sm: 12 },
+             
               }}
             >
               <Typography
@@ -500,5 +506,7 @@ export default function HorizontalLinearStepper() {
         </React.Fragment>
       )}
     </Box>
+    <Footer />
+    </>
   );
 }
