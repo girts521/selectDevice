@@ -25,7 +25,7 @@ export default function Home() {
     <>
       <CssBaseline />
       <Head>
-        <title>Create Next App</title>
+        <title>Find your next device!</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ThemeProvider theme={darkTheme}>
