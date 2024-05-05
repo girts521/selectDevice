@@ -84,7 +84,7 @@ export default function Hero() {
           </Stack>
           <Typography variant="caption" textAlign="center" sx={{ opacity: 0.8 }}>
             By clicking &quot;Start now&quot; you agree to our&nbsp;
-            <Link href="#" color="primary">
+            <Link href="/tos" color="primary">
               Terms & Conditions
             </Link>
             .

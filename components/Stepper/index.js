@@ -29,7 +29,7 @@ export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
   const [budget, setBudget] = React.useState(0);
-  const [useCase, setUseCase] = React.useState([]);
+  const [useCase, setUseCase] = React.useState(["basic"]);
   const [portability, setPortability] = React.useState(0);
   const [os, setOS] = React.useState(null);
   const [params, setParams] = React.useState(null);
@@ -306,6 +306,7 @@ export default function HorizontalLinearStepper() {
                         <Checkbox
                           onChange={useCaseOnChangeHandler}
                           value={"basic"}
+                          checked
                         />
                       }
                       label="General web browsing, videos."

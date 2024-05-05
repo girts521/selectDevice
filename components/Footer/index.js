@@ -50,13 +50,13 @@ export default function Footer() {
         }}
       >
         <div>
-          <Link color="text.secondary" href="#">
+          <Link color="text.secondary" href="/privacy">
             Privacy Policy
           </Link>
           <Typography display="inline" sx={{ mx: 0.5, opacity: 0.5 }}>
             &nbsp;•&nbsp;
           </Typography>
-          <Link color="text.secondary" href="#">
+          <Link color="text.secondary" href="/tos">
             Terms of Service
           </Link>
           <Copyright />
@@ -72,7 +72,7 @@ export default function Footer() {
         >
           <IconButton
             color="inherit"
-            href="https://github.com/mui"
+            href="https://github.com/girts521/selectDevice"
             aria-label="GitHub"
             sx={{ alignSelf: 'center' }}
           >
@@ -80,15 +80,7 @@ export default function Footer() {
           </IconButton>
           <IconButton
             color="inherit"
-            href="https://twitter.com/MaterialUI"
-            aria-label="X"
-            sx={{ alignSelf: 'center' }}
-          >
-            <TwitterIcon />
-          </IconButton>
-          <IconButton
-            color="inherit"
-            href="https://www.linkedin.com/company/mui/"
+            href="www.linkedin.com/in/girts-karcevskis-79302890"
             aria-label="LinkedIn"
             sx={{ alignSelf: 'center' }}
           >
