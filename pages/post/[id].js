@@ -16,10 +16,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import ShareIcon from "@mui/icons-material/Share";
 import ShareList from "../../components/ShareList";
 import Popper from "@mui/material/Popper";
-
-
-
-
+import Head from "next/head";
 
 const darkTheme = createTheme({
   palette: {
@@ -87,6 +84,10 @@ export default function Post() {
 
   return (
     <>
+      <Head>
+        <title>Find your next device!</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <CssBaseline />
       <ThemeProvider theme={darkTheme}>
         <Container>
@@ -127,10 +128,10 @@ export default function Post() {
           </Box>
         </Container>
         <Popper id={popId} open={open} anchorEl={anchorEl}>
-        <Paper elevation={1}>
-          <Box sx={{ p: 1, bgcolor: "#fff" }}>
-            <ShareList url={url} />
-          </Box>
+          <Paper elevation={1}>
+            <Box sx={{ p: 1, bgcolor: "#fff" }}>
+              <ShareList url={url} />
+            </Box>
           </Paper>
         </Popper>
         <Paper
