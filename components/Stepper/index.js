@@ -376,7 +376,7 @@ export default function HorizontalLinearStepper() {
                         : "primary.light",
                   }}
                 >
-                  How important is portability is for you?
+                  How important is portability for you?
                 </Typography>
                 <Box>
                   <FormControl>
