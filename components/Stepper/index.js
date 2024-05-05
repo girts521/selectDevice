@@ -171,7 +171,7 @@ export default function HorizontalLinearStepper() {
   return (
     <>
       <My_AppBar />
-    <Box sx={{ width: "100%", maxWidth: "1200px", margin:"auto" }}>
+    <Box sx={{ width: "100%", maxWidth: "1200px", margin:"auto", mt:10}}>
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
