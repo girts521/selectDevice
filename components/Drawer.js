@@ -13,47 +13,82 @@ import HomeIcon from "@mui/icons-material/Home";
 import FeedIcon from "@mui/icons-material/Feed";
 import { Link } from "@mui/material";
 import * as React from "react";
-let buttons = ["Home", "Form", "Laptop Form", "Phone form"];
+import { LanguageContext } from "../context/LanguageContext";
+
 export default function DrawerList(props) {
-  const [lang, setLang] = React.useState("EN");
+  const { lang, setLang } = React.useContext(LanguageContext);
 
   const urls = ["/", "/form", "/form/laptop", "/form/phone"];
- 
+  const buttonsEN = ["Home", "Form", "Laptop Form", "Phone form"];
+  const buttonsDE = ["Home", "Formular", "Laptop-Formular", "Telefon-Formular"];
+  const buttonsVN = [
+    "Home",
+    "Biểu mẫu",
+    "Biểu mẫu laptop",
+    "Biểu mẫu điện thoại",
+  ];
 
   React.useEffect(() => {
     const langCheck = localStorage.getItem("lang");
     setLang(langCheck);
-    console.log(langCheck)
-    if (langCheck === "EN") {
-      buttons = ["Home", "Form", "Laptop Form", "Phone form"];
-    }
-    if (langCheck === "DE") {
-      buttons = ["Home", "Formular", "Laptop-Formular", "Telefon-Formular"];
-    }
-    if (langCheck === "VN") {
-      buttons = ["Home", "Biểu mẫu", "Biểu mẫu laptop", "Biểu mẫu điện thoại"];
-    }
   }, []);
 
   return (
     <Box sx={{ width: 250 }} role="presentation" onClick={props.close(false)}>
       <List>
-        {buttons.map((text, index) => (
-          <Link underline="none" color={"inherit"} href={urls[index]}>
-            {" "}
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index === 0 && <HomeIcon />}
-                  {index === 1 && <FeedIcon />}
-                  {index === 2 && <ComputerIcon />}
-                  {index === 3 && <SmartphoneIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-        ))}
+        {lang === "EN" &&
+          buttonsEN.map((text, index) => (
+            <Link underline="none" color={"inherit"} href={urls[index]}>
+              {" "}
+              <ListItem key={text} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {index === 0 && <HomeIcon />}
+                    {index === 1 && <FeedIcon />}
+                    {index === 2 && <ComputerIcon />}
+                    {index === 3 && <SmartphoneIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+          ))}
+
+        {lang === "DE" &&
+          buttonsDE.map((text, index) => (
+            <Link underline="none" color={"inherit"} href={urls[index]}>
+              {" "}
+              <ListItem key={text} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {index === 0 && <HomeIcon />}
+                    {index === 1 && <FeedIcon />}
+                    {index === 2 && <ComputerIcon />}
+                    {index === 3 && <SmartphoneIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+          ))}
+
+        {lang === "VN" &&
+          buttonsVN.map((text, index) => (
+            <Link underline="none" color={"inherit"} href={urls[index]}>
+              {" "}
+              <ListItem key={text} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {index === 0 && <HomeIcon />}
+                    {index === 1 && <FeedIcon />}
+                    {index === 2 && <ComputerIcon />}
+                    {index === 3 && <SmartphoneIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+          ))}
       </List>
     </Box>
   );

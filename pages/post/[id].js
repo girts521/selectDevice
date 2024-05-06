@@ -18,6 +18,7 @@ import ShareList from "../../components/ShareList";
 import Popper from "@mui/material/Popper";
 import Head from "next/head";
 import CircularProgress from "@mui/material/CircularProgress";
+import { LanguageContext } from "../../context/LanguageContext";
 
 const darkTheme = createTheme({
   palette: {
@@ -39,7 +40,7 @@ export default function Post() {
   const [value, setValue] = React.useState(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [url, setUrl] = React.useState("/");
-  const [lang, setLang] = React.useState("EN");
+  const { lang, setLang } = React.useContext(LanguageContext);
 
   React.useEffect(() => {
     async function fetchData() {
@@ -186,6 +187,7 @@ export default function Post() {
 
             {lang === "DE" && (
               <BottomNavigationAction
+                value={2}
                 label="Weiter"
                 icon={<ArrowForwardIosIcon />}
               />
@@ -204,6 +206,7 @@ export default function Post() {
             {lang === "VN" && (
 
                 <BottomNavigationAction
+                value={2}
                   label="Tiếp theo"
                   icon={<ArrowForwardIosIcon />}
                 />

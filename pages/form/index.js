@@ -14,6 +14,7 @@ import Image from "next/image";
 import { Cursor } from "react-simple-typewriter";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { LanguageContext } from "../../context/LanguageContext";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -26,7 +27,8 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Form() {
   const [elevation1, setElevation1] = React.useState(1);
   const [elevation2, setElevation2] = React.useState(1);
-  const [lang, setLang] = React.useState("EN");
+  const { lang, setLang } = React.useContext(LanguageContext);
+
 
   React.useEffect(() => {
     const langCheck = localStorage.getItem("lang");

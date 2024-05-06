@@ -16,6 +16,7 @@ import Paper from "@mui/material/Paper";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { useRouter } from "next/router";
+import { LanguageContext } from "../../context/LanguageContext";
 
 
 export default function Result() {
@@ -24,7 +25,7 @@ export default function Result() {
   const [answer, setAnswer] = React.useState("");
   const [isDisabled, setisDisabled] = React.useState(false);
   const [loading, setloading] = React.useState(false);
-  const [lang, setLang] = React.useState("EN");
+  const { lang, setLang } = React.useContext(LanguageContext);
 
   const router = useRouter();
 

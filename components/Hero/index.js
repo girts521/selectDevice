@@ -10,6 +10,8 @@ import Typography from '@mui/material/Typography';
 import { Typewriter } from 'react-simple-typewriter'
 import { useRouter } from 'next/router'
 import { useTheme } from '@mui/material/styles';
+import { LanguageContext } from "../../context/LanguageContext";
+
 
 export default function Hero() {
   const router = useRouter();
@@ -17,7 +19,7 @@ export default function Hero() {
     router.push('/form')
   }
 
-  const [lang, setLang] = React.useState("EN")
+  const { lang, setLang } = React.useContext(LanguageContext);
 
   const theme = useTheme();
 

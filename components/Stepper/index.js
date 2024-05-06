@@ -19,6 +19,7 @@ import Select from "@mui/material/Select";
 import { useRouter } from "next/router";
 import My_AppBar from "../AppBar";
 import Footer from "../Footer";
+import { LanguageContext } from "../../context/LanguageContext";
 
 let steps = ["Budget", "Use case", "Portability", "Operating system"];
 
@@ -30,10 +31,10 @@ export default function HorizontalLinearStepper() {
   const [portability, setPortability] = React.useState(0);
   const [os, setOS] = React.useState(null);
   const [params, setParams] = React.useState(null);
-  const [lang, setLang] = React.useState("EN");
 
   const nextRef = React.useRef();
   const router = useRouter();
+  const { lang, setLang } = React.useContext(LanguageContext);
 
   function valuetext(value) {
     return `${value}$`;
@@ -111,24 +112,24 @@ export default function HorizontalLinearStepper() {
   const handleReset = () => {
     setActiveStep(0);
   };
+
+  const stepsEN = ["Budget", "Use case", "Portability", "Operating system"];
+  const stepsDE = [
+    "Budget",
+    "Anwendungsfall",
+    "Portabilität",
+    "Betriebssystem",
+  ];
+  const stepsVN = [
+    "Ngân sách",
+    "Mục đích sử dụng",
+    "Khả năng mang theo",
+    "Hệ điều hành",
+  ];
+
   React.useEffect(() => {
     const langCheck = localStorage.getItem("lang");
     setLang(langCheck);
-
-    if (langCheck === "EN") {
-      steps = ["Budget", "Use case", "Portability", "Operating system"];
-    }
-    if (langCheck === "DE") {
-      steps = ["Budget", "Anwendungsfall", "Portabilität", "Betriebssystem"];
-    }
-    if (langCheck === "VN") {
-      steps = [
-        "Ngân sách",
-        "Mục đích sử dụng",
-        "Khả năng mang theo",
-        "Hệ điều hành",
-      ];
-    }
   }, []);
 
   React.useEffect(() => {
@@ -188,23 +189,62 @@ export default function HorizontalLinearStepper() {
     <>
       <Box sx={{ width: "100%", maxWidth: "1200px", margin: "auto", mt: 10 }}>
         <Stepper activeStep={activeStep}>
-          {steps.map((label, index) => {
-            const stepProps = {};
-            const labelProps = {};
-            if (isStepOptional(index)) {
-              labelProps.optional = (
-                <Typography variant="caption">Optional</Typography>
+          {lang === "EN" &&
+            stepsEN.map((label, index) => {
+              const stepProps = {};
+              const labelProps = {};
+              if (isStepOptional(index)) {
+                labelProps.optional = (
+                  <Typography variant="caption">Optional</Typography>
+                );
+              }
+              if (isStepSkipped(index)) {
+                stepProps.completed = false;
+              }
+              return (
+                <Step key={label} {...stepProps}>
+                  <StepLabel {...labelProps}>{label}</StepLabel>
+                </Step>
               );
-            }
-            if (isStepSkipped(index)) {
-              stepProps.completed = false;
-            }
-            return (
-              <Step key={label} {...stepProps}>
-                <StepLabel {...labelProps}>{label}</StepLabel>
-              </Step>
-            );
-          })}
+            })}
+
+          {lang === "DE" &&
+            stepsDE.map((label, index) => {
+              const stepProps = {};
+              const labelProps = {};
+              if (isStepOptional(index)) {
+                labelProps.optional = (
+                  <Typography variant="caption">Optional</Typography>
+                );
+              }
+              if (isStepSkipped(index)) {
+                stepProps.completed = false;
+              }
+              return (
+                <Step key={label} {...stepProps}>
+                  <StepLabel {...labelProps}>{label}</StepLabel>
+                </Step>
+              );
+            })}
+
+          {lang === "VN" &&
+            stepsVN.map((label, index) => {
+              const stepProps = {};
+              const labelProps = {};
+              if (isStepOptional(index)) {
+                labelProps.optional = (
+                  <Typography variant="caption">Optional</Typography>
+                );
+              }
+              if (isStepSkipped(index)) {
+                stepProps.completed = false;
+              }
+              return (
+                <Step key={label} {...stepProps}>
+                  <StepLabel {...labelProps}>{label}</StepLabel>
+                </Step>
+              );
+            })}
         </Stepper>
         {activeStep === steps.length ? (
           <React.Fragment>

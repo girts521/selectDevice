@@ -7,6 +7,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MediaCard from "../Card";
 import CircularProgress from "@mui/material/CircularProgress";
+import { LanguageContext } from "../../context/LanguageContext";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -18,7 +19,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Blog() {
   const [blogPost, setBlogPost] = React.useState(null);
-  const [lang, setLang] = React.useState("EN");
+  const { lang, setLang } = React.useContext(LanguageContext);
 
   React.useEffect(() => {
     async function fetchData() {
