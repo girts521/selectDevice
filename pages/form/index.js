@@ -15,19 +15,6 @@ import { Cursor } from "react-simple-typewriter";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-
-const darkTheme = createTheme({
-  palette: {
-    mode: "light",
-    // primary: {
-    //   main: "#e76f51",
-    // },
-    // secondary: {
-    //   main: "#780000",
-    // },
-  },
-});
-
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -68,14 +55,6 @@ export default function Form() {
 
   return (
     <>
-      <Head>
-        <title>Find your next device!</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <CssBaseline />
-      <ThemeProvider theme={darkTheme}>
-        <Container>
-          <My_AppBar />
           <Box
             sx={{
               display: "flex",
@@ -130,9 +109,6 @@ export default function Form() {
               </Item>
             </Stack>
           </Box>
-        </Container>
-        <Footer />
-      </ThemeProvider>
     </>
   );
 }

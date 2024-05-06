@@ -84,12 +84,6 @@ export default function Post() {
 
   return (
     <>
-      <Head>
-        <title>Find your next device!</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <CssBaseline />
-      <ThemeProvider theme={darkTheme}>
         <Container>
           <My_AppBar />
           <Box
@@ -159,8 +153,6 @@ export default function Post() {
             </BottomNavigation>
           </Box>
         </Paper>
-        <Footer />
-      </ThemeProvider>
     </>
   );
 }

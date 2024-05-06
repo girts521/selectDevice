@@ -17,7 +17,6 @@ export default function Tos() {
       pb: { xs: 8, sm: 12 },
     }}
   >
-    <My_AppBar />
       <h1>Terms of Service</h1>
 
       <h2>
@@ -78,7 +77,6 @@ export default function Tos() {
         If you have any questions or concerns about our Privacy Policy or Terms
         of Service, please contact us at contact@gkarcevskis.com.
       </p>
-      <Footer />
     </Container>
   );
 }

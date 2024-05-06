@@ -178,7 +178,6 @@ export default function Result() {
 
   return (
     <>
-      <My_AppBar />
       <Container
         sx={{
           display: "flex",
@@ -356,7 +355,6 @@ export default function Result() {
           </Box>
         )}
       </Container>
-      <Footer />
     </>
   );
 }
