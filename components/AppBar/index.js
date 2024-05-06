@@ -39,6 +39,10 @@ export default function My_AppBar() {
 
   React.useEffect(() => {
     const checkLang = localStorage.getItem("lang")
+    if (!checkLang) {
+      localStorage.setItem("lang", "EN")
+      setLang("EN")
+    }
     if (lang === "EN" || checkLang === "EN"){
       enRef.current.selected = true;
     }
