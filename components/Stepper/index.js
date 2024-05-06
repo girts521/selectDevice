@@ -187,8 +187,8 @@ export default function HorizontalLinearStepper() {
 
   return (
     <>
-      <Box sx={{ width: "100%", maxWidth: "1200px", margin: "auto", mt: 10 }}>
-        <Stepper activeStep={activeStep}>
+      <Box sx={{ width: "100%", maxWidth: "1200px", margin: "auto", mt: 10, wordBreak:"break-word" }}>
+        <Stepper alternativeLabel activeStep={activeStep}>
           {lang === "EN" &&
             stepsEN.map((label, index) => {
               const stepProps = {};
