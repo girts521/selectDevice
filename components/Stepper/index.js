@@ -748,7 +748,7 @@ export default function HorizontalLinearStepper() {
                             fullWidth
                           >
                             <InputLabel id="demo-simple-select-label">
-                              Age
+                              OS
                             </InputLabel>
                             <Select
                               labelId="demo-simple-select-label"
