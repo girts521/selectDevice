@@ -12,13 +12,33 @@ import SmartphoneIcon from "@mui/icons-material/Smartphone";
 import HomeIcon from "@mui/icons-material/Home";
 import FeedIcon from "@mui/icons-material/Feed";
 import { Link } from "@mui/material";
-
+import * as React from "react";
+let buttons = ["Home", "Form", "Laptop Form", "Phone form"];
 export default function DrawerList(props) {
+  const [lang, setLang] = React.useState("EN");
+
   const urls = ["/", "/form", "/form/laptop", "/form/phone"];
+ 
+
+  React.useEffect(() => {
+    const langCheck = localStorage.getItem("lang");
+    setLang(langCheck);
+    console.log(langCheck)
+    if (langCheck === "EN") {
+      buttons = ["Home", "Form", "Laptop Form", "Phone form"];
+    }
+    if (langCheck === "DE") {
+      buttons = ["Home", "Formular", "Laptop-Formular", "Telefon-Formular"];
+    }
+    if (langCheck === "VN") {
+      buttons = ["Home", "Biểu mẫu", "Biểu mẫu laptop", "Biểu mẫu điện thoại"];
+    }
+  }, []);
+
   return (
     <Box sx={{ width: 250 }} role="presentation" onClick={props.close(false)}>
       <List>
-        {["Home", "Form", "Laptop Form", "Phone form"].map((text, index) => (
+        {buttons.map((text, index) => (
           <Link underline="none" color={"inherit"} href={urls[index]}>
             {" "}
             <ListItem key={text} disablePadding>

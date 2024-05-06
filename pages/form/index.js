@@ -26,6 +26,12 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Form() {
   const [elevation1, setElevation1] = React.useState(1);
   const [elevation2, setElevation2] = React.useState(1);
+  const [lang, setLang] = React.useState("EN");
+
+  React.useEffect(() => {
+    const langCheck = localStorage.getItem("lang");
+    setLang(langCheck);
+  }, []);
 
   const router = useRouter();
 
@@ -74,7 +80,9 @@ export default function Form() {
                 fontSize: "clamp(3.5rem, 10vw, 4rem)",
               }}
             >
-              What are you looking for?
+            {lang === "EN" && "What are you looking for?"}
+            {lang === "DE" && "Was suchen Sie?"}
+            {lang === "VN" && "Bạn đang tìm kiếm gì?"}
             </Typography>
             <Stack
               direction={{ sm: "column", md: "row" }}
@@ -105,7 +113,9 @@ export default function Form() {
                   height={300}
                   src={"/static/images/phone.jpeg"}
                 />
-                <Typography>Phone</Typography>
+                {lang === "EN" && <Typography>Phone</Typography>}
+                {lang === "DE" && <Typography>Handy</Typography>}
+                {lang === "VN" && <Typography>Điện thoại di động</Typography>}
               </Item>
             </Stack>
           </Box>

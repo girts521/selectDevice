@@ -15,14 +15,16 @@ import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
+
 
 export default function Result() {
   const [params, setParams] = React.useState({});
   const [filteredResult, setFilteredResult] = React.useState([]);
   const [answer, setAnswer] = React.useState("");
   const [isDisabled, setisDisabled] = React.useState(false);
-  const [loading, setloading] = React.useState(false)
+  const [loading, setloading] = React.useState(false);
+  const [lang, setLang] = React.useState("EN");
 
   const router = useRouter();
 
@@ -31,7 +33,8 @@ export default function Result() {
     if (newParams) {
       setParams(newParams);
     }
-    
+    const langCheck = localStorage.getItem("lang");
+    setLang(langCheck);
   }, []);
 
   React.useEffect(() => {
@@ -86,18 +89,16 @@ export default function Result() {
         .slice(0, 5); // Limit the results to 5 laptops
     }
     if (Object.keys(params).length > 0) {
-      console.log("params: ", params);
       const result = filterLaptops(data.laptops, params);
 
       if (result) {
-        console.log("result: ", result);
         setFilteredResult(result);
       }
     }
   }, [params]);
 
   const handleClick = (url) => {
-    router.push(url)
+    router.push(url);
   };
 
   function formatText(text) {
@@ -168,12 +169,12 @@ export default function Result() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ filteredResult, params }),
+      body: JSON.stringify({ filteredResult, params, lang }),
     });
-    
+
     const data = await response.json();
     setAnswer(data.answer);
-    setloading(false)
+    setloading(false);
   };
 
   return (
@@ -197,113 +198,142 @@ export default function Result() {
             pb: { xs: 8, sm: 12 },
           }}
         >
-          Any of these should work for you!&nbsp;
+          {lang === "EN" && "Any of these should work for you!"}
+          {lang === "DE" &&
+            "Jede dieser Optionen sollte für Sie geeignet sein!"}
+          {lang === "VN" &&
+            "Bất kỳ lựa chọn nào trong số này đều sẽ phù hợp với bạn! "}
         </Typography>
-        {filteredResult
-          ? filteredResult.map((result) => {
-              return (
-                <>
-                  <Card
-                    onClick={() => {handleClick(result.url)}}
-                    sx={{
-                      width: "80%",
-                      minWidth: 250,
-                      cursor: "pointer",
-                      marginBottom: 15,
-                      p: 7,
+        {filteredResult ? (
+          filteredResult.map((result) => {
+            return (
+              <>
+                <Card
+                  onClick={() => {
+                    handleClick(result.url);
+                  }}
+                  sx={{
+                    width: "80%",
+                    minWidth: 250,
+                    cursor: "pointer",
+                    marginBottom: 15,
+                    p: 7,
+                  }}
+                >
+                  <img
+                    src={result.img[0]}
+                    alt={result.name}
+                    title={result.name}
+                    style={{
+                      width: "auto",
+                      height: "auto",
+                      maxWidth: "100%",
+                      maxHeight: "100%",
                     }}
-                  >
-                    <img
-                      src={result.img[0]}
-                      alt={result.name}
-                      title={result.name}
-                      style={{
-                        width: "auto",
-                        height: "auto",
-                        maxWidth: "100%",
-                        maxHeight: "100%",
-                      }}
-                    />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
-                        {result.name}
-                      </Typography>
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                      {result.name}
+                    </Typography>
+                    <Typography
+                      component={"div"}
+                      variant="body2"
+                      color="text.secondary"
+                    >
+                      {lang === "EN" && `Display: ${result.display}`}
+                      {lang === "DE" && `Bildschirm: ${result.display}`}
+                      {lang === "VN" && `Màn hình: ${result.display}`}
+                    </Typography>
+                    <Typography
+                      component={"div"}
+                      variant="body2"
+                      color="text.secondary"
+                    >
+                      RAM: {result.ram}
+                    </Typography>
+                    <Typography
+                      component={"div"}
+                      variant="body2"
+                      color="text.secondary"
+                    >
+                      {lang === "EN" && `Storage: ${result.memory}`}
+                      {lang === "DE" && `Speicher: ${result.memory}`}
+                      {lang === "VN" && `Lưu trữ: ${result.memory}`}
+                    </Typography>
+                    {result.gpu && (
                       <Typography
                         component={"div"}
                         variant="body2"
                         color="text.secondary"
                       >
-                        Display: {result.display}
+                        {(lang === "EN") === `Graphics card: ${result.gpu}`}
+                        {(lang === "DE") === `Grafikkarte: ${result.gpu}`}
+                        {(lang === "VN") === `Card đồ họa: ${result.gpu}`}
                       </Typography>
-                      <Typography
-                        component={"div"}
-                        variant="body2"
-                        color="text.secondary"
-                      >
-                        Ram: {result.ram}
-                      </Typography>
-                      <Typography
-                        component={"div"}
-                        variant="body2"
-                        color="text.secondary"
-                      >
-                        Storage: {result.memory}
-                      </Typography>
-                      {result.gpu && (
-                        <Typography
-                          component={"div"}
-                          variant="body2"
-                          color="text.secondary"
-                        >
-                          Graphics card: {result.gpu}
-                        </Typography>
-                      )}
-                      <Typography
-                        component={"div"}
-                        variant="body2"
-                        color="text.secondary"
-                      >
-                        Processor unit:{" "}
-                        {!isNaN(result.cpu)
-                          ? `Intel i${result.cpu}`
-                          : `Apple ${result.cpu}`}
-                      </Typography>
-                      <Typography
-                        component={"div"}
-                        variant="body2"
-                        color="text.secondary"
-                      >
-                        Portability score (higher is better):{" "}
-                        {result.portability}
-                      </Typography>
-                      <Typography
-                        component={"div"}
-                        variant="body2"
-                        color="text.secondary"
-                      >
-                        Operating system:{" "}
-                        {result.os.map((os) => {
-                          if (result.os.indexOf(os) === result.os.length - 1) {
-                            return `${os}.`;
-                          } else {
-                            return `${os}, `;
-                          }
-                        })}
-                      </Typography>
-                      <Typography
-                        component={"div"}
-                        variant="body1"
-                        color="text.primary"
-                      >
-                        Price: {`${result.price}€`}
-                      </Typography>
-                      <Link href={result.url}>Check it out on Amazon</Link>
-                    </CardContent>
-                  </Card>
-                </>
-              );
-            })
-          : "Loading..."}
+                    )}
+                    <Typography
+                      component={"div"}
+                      variant="body2"
+                      color="text.secondary"
+                    >
+                      {lang === "EN" && "Processor unit: "}
+                      {lang === "DE" && "Prozessor: "}
+                      {lang === "VN" && "Đơn vị xử lý trung tâm: "}
+                      {!isNaN(result.cpu)
+                        ? `Intel i${result.cpu}`
+                        : `Apple ${result.cpu}`}
+                    </Typography>
+                    <Typography
+                      component={"div"}
+                      variant="body2"
+                      color="text.secondary"
+                    >
+                      {lang === "EN" &&
+                        "Portability score (higher is better): "}
+                      {lang === "DE" && "Mobilitätspunkte (höher ist besser): "}
+                      {lang === "VN" &&
+                        "Điểm khả năng mang theo (càng cao càng tốt): "}
+                      {result.portability}
+                    </Typography>
+                    <Typography
+                      component={"div"}
+                      variant="body2"
+                      color="text.secondary"
+                    >
+                      OS:
+                      {result.os.map((os) => {
+                        if (result.os.indexOf(os) === result.os.length - 1) {
+                          return `${os}.`;
+                        } else {
+                          return `${os}, `;
+                        }
+                      })}
+                    </Typography>
+                    <Typography
+                      component={"div"}
+                      variant="body1"
+                      color="text.primary"
+                    >
+                      {lang === "EN" && "Price: "}
+                      {lang === "DE" && "Preis: "}
+                      {lang === "VN" && "Giá: "}
+                      {`${result.price}€`}
+                    </Typography>
+                    <Link href={result.url}>
+                      {lang === "EN" && "Check it out on Amazon"}
+                      {lang === "DE" && "Schau es dir auf Amazon an"}
+                      {lang === "VN" && "Xem trên Amazon"}
+                    </Link>
+                  </CardContent>
+                </Card>
+              </>
+            );
+          })
+        ) : (
+          <Box sx={{ display: "flex", m: 7 }}>
+            <CircularProgress />
+          </Box>
+        )}
         <Typography
           variant="h1"
           sx={{
@@ -315,15 +345,18 @@ export default function Result() {
             pb: { xs: 8, sm: 12 },
           }}
         >
-          Still a bit lost?&nbsp;
+         {lang === "EN" && "Still a bit lost?\u00a0"}
+         {lang === "DE" && "Noch etwas verwirrt?\u00a0"}
+         {lang === "VN" && "Vẫn còn lúng túng chút?\u00a0"}
         </Typography>
         <Typography
           textAlign="center"
           color="text.primary"
           sx={{ alignSelf: "center", width: { sm: "100%", md: "80%" }, pb: 7 }}
         >
-          If you are still not sure about which one will be better and why, then
-          you can let our AI narrow it down and explain a bit more.
+          {lang === "EN" && "If you are still not sure about which one will be better and why, then\n you can let our AI narrow it down and explain a bit more."}
+          {lang === "DE" && "Wenn Sie sich immer noch nicht sicher sind, welche Option besser ist und warum, dann können Sie unsere KI verwenden, um die Auswahl einzugrenzen und weitere Erklärungen zu geben."}
+          {lang === "VN" && "Nếu bạn vẫn chưa chắc chắn về sự lựa chọn nào tốt hơn và tại sao, thì bạn có thể để AI của chúng tôi giúp loại bỏ các lựa chọn và giải thích thêm."}
         </Typography>
         <Button
           onClick={getAnswer}
@@ -331,7 +364,9 @@ export default function Result() {
           variant="contained"
           size="large"
         >
-          HELP ME!
+          {lang === "EN" && "HELP ME!"}
+          {lang === "DE" && "Hilf mir!"}
+          {lang === "VN" && "Giúp tôi!"}
         </Button>
         {answer && (
           <Paper
@@ -346,11 +381,13 @@ export default function Result() {
             }}
           >
             {" "}
-            <ul style={{ listStyleType: "none", padding: 0 }}>{formatText(answer)}</ul>
+            <ul style={{ listStyleType: "none", padding: 0 }}>
+              {formatText(answer)}
+            </ul>
           </Paper>
         )}
         {loading && (
-          <Box sx={{ display: "flex", m: 7}}>
+          <Box sx={{ display: "flex", m: 7 }}>
             <CircularProgress />
           </Box>
         )}

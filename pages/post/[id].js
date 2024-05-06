@@ -17,6 +17,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import ShareList from "../../components/ShareList";
 import Popper from "@mui/material/Popper";
 import Head from "next/head";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const darkTheme = createTheme({
   palette: {
@@ -38,6 +39,7 @@ export default function Post() {
   const [value, setValue] = React.useState(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [url, setUrl] = React.useState("/");
+  const [lang, setLang] = React.useState("EN");
 
   React.useEffect(() => {
     async function fetchData() {
@@ -46,14 +48,14 @@ export default function Post() {
       postId = router.query.id;
       const found = data.blogPosts.find((post) => post.id === postId);
       setBlogPost(found);
-      console.log(router);
     }
     fetchData();
+    const langCheck = localStorage.getItem("lang");
+    setLang(langCheck);
   }, [router.query]);
 
   React.useEffect(() => {
     setUrl(window && window ? window.location.href : "/");
-    console.log(url);
     if (value == "0") {
       router.push("/");
     }
@@ -84,75 +86,132 @@ export default function Post() {
 
   return (
     <>
-        <Container>
-          <My_AppBar />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              pt: { xs: 14, sm: 20 },
-              pb: { xs: 8, sm: 12 },
+      <Container>
+        <My_AppBar />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            pt: { xs: 14, sm: 20 },
+            pb: { xs: 8, sm: 12 },
+          }}
+        >
+          {blogPost ? (
+            <>
+              <Typography variant="h2" component="h2">
+                {lang === "EN" && blogPost.titleEN}
+                {lang === "DE" && blogPost.titleDE}
+                {lang === "VN" && blogPost.titleVN}
+              </Typography>
+              <Typography
+                component={"div"}
+                variant="body2"
+                color="text.primary"
+              >
+                {lang === "EN" && blogPost.contentEN && (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: blogPost.contentEN,
+                    }}
+                  />
+                )}
+
+                {lang === "DE" && blogPost.contentDE && (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: blogPost.contentDE,
+                    }}
+                  />
+                )}
+
+                {lang === "VN" && blogPost.contentVN && (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: blogPost.contentVN,
+                    }}
+                  />
+                )}
+              </Typography>
+            </>
+          ) : (
+            <Box sx={{ display: "flex", m: 7 }}>
+              <CircularProgress />
+            </Box>
+          )}
+        </Box>
+      </Container>
+      <Popper id={popId} open={open} anchorEl={anchorEl}>
+        <Paper elevation={1}>
+          <Box sx={{ p: 1, bgcolor: "#fff" }}>
+            <ShareList url={url} />
+          </Box>
+        </Paper>
+      </Popper>
+      <Paper
+        sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
+        elevation={3}
+      >
+        <Box>
+          <BottomNavigation
+            showLabels
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
             }}
           >
-            {blogPost ? (
-              <>
-                <Typography variant="h2" component="h2">
-                  {blogPost.title}
-                </Typography>
-                <Typography
-                  component={"div"}
-                  variant="body2"
-                  color="text.primary"
-                >
-                  {blogPost.content ? (
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: blogPost.content,
-                      }}
-                    />
-                  ) : (
-                    "Loading.."
-                  )}
-                </Typography>
-              </>
-            ) : (
-              "Loading..."
-            )}
-          </Box>
-        </Container>
-        <Popper id={popId} open={open} anchorEl={anchorEl}>
-          <Paper elevation={1}>
-            <Box sx={{ p: 1, bgcolor: "#fff" }}>
-              <ShareList url={url} />
-            </Box>
-          </Paper>
-        </Popper>
-        <Paper
-          sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
-          elevation={3}
-        >
-          <Box>
-            <BottomNavigation
-              showLabels
-              value={value}
-              onChange={(event, newValue) => {
-                setValue(newValue);
-              }}
-            >
-              <BottomNavigationAction label="Home" icon={<HomeIcon />} />
+            <BottomNavigationAction label="Home" icon={<HomeIcon />} />
+            {lang === "EN" && (
               <BottomNavigationAction
                 onClick={handleClick}
                 label="Share"
                 icon={<ShareIcon />}
               />
+            )}
+
+            {lang === "EN" && (
               <BottomNavigationAction
                 label="Next"
                 icon={<ArrowForwardIosIcon />}
               />
-            </BottomNavigation>
-          </Box>
-        </Paper>
+            )}
+
+            {lang === "DE" && (
+              <BottomNavigationAction
+                onClick={handleClick}
+                label="Teilen"
+                icon={<ShareIcon />}
+              />
+            )}
+
+            {lang === "DE" && (
+              <BottomNavigationAction
+                label="Weiter"
+                icon={<ArrowForwardIosIcon />}
+              />
+            )}
+
+            {lang === "VN" && (
+            
+                <BottomNavigationAction
+                  onClick={handleClick}
+                  label="Chia sẻ"
+                  icon={<ShareIcon />}
+                />
+
+            )}
+
+            {lang === "VN" && (
+
+                <BottomNavigationAction
+                  label="Tiếp theo"
+                  icon={<ArrowForwardIosIcon />}
+                />
+              
+            )}
+          </BottomNavigation>
+        </Box>
+      </Paper>
     </>
   );
 }

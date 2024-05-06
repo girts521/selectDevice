@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   const client = new MistralClient(apiKey);
 
   if (req.method === "POST") {
-    const { filteredResult, params } = req.body;
+    const { filteredResult, params, lang } = req.body;
 
     try {
       const chatResponse = await client.chat({
@@ -15,7 +15,7 @@ export default async function handler(req, res) {
           { role: "system", content: JSON.stringify(filteredResult) },
           {
             role: "user",
-            content: `From the laptops provided in the json object, suggest which will be best for these use cases: ${params.useCase.map(
+            content: `It is very important that you answer only in language: ${lang}. From the laptops provided in the json object, suggest which will be best for these use cases: ${params.useCase.map(
               (el) => {
                 return `${el} `;
               }

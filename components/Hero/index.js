@@ -9,12 +9,23 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { Typewriter } from 'react-simple-typewriter'
 import { useRouter } from 'next/router'
+import { useTheme } from '@mui/material/styles';
 
 export default function Hero() {
   const router = useRouter();
   const clickHandler = () => {
     router.push('/form')
   }
+
+  const [lang, setLang] = React.useState("EN")
+
+  const theme = useTheme();
+
+
+  React.useEffect(() => {
+    const langCheck = localStorage.getItem("lang")
+   setLang(langCheck)
+  }, [])
 
   return (
     <Box
@@ -43,13 +54,15 @@ export default function Hero() {
             variant="h1"
             sx={{
               display: 'flex',
-              flexDirection: { xs: 'column', md: 'row' },
+              flexDirection: { xs: 'column', md: 'column' },
               alignSelf: 'center',
               textAlign: 'center',
               fontSize: 'clamp(3.5rem, 10vw, 4rem)',
             }}
           >
-            Find your new&nbsp;
+           { lang === "EN" && "Find your new\u00a0" }
+           { lang === "DE" && "Finden Sie Ihr Neues\u00a0" }
+           { lang === "VN" && "Tìm kiếm của bạn mới\u00a0" }
             <Typography
               component="span"
               variant="h1"
@@ -67,9 +80,9 @@ export default function Hero() {
             color="text.primary"
             sx={{ alignSelf: 'center', width: { sm: '100%', md: '80%' } }}
           >
-            Answer a few basic questions and 
-            my algorithm will offer you a few matching devices. You can just pick any of them up and be done!
-            Sounds easy, right?
+            {lang === "EN" && "Answer a few basic questions and my algorithm will offer you a few matching devices. You can just pick any of them up and be done! Sounds easy, right?"}
+            {lang === "DE" && "Beantworten Sie ein paar grundlegende Fragen und mein Algorithmus wird Ihnen einige passende Geräte vorschlagen. Sie können sich einfach eines davon aussuchen und haben es geschafft! Klingt einfach, oder?"}
+            {lang === "VN" && "Trả lời một vài câu hỏi cơ bản và thuật toán của tôi sẽ đề xuất một số thiết bị phù hợp. Bạn chỉ cần chọn bất kỳ thiết bị nào đó và hoàn thành! Công việc đơn giản, phải không?"}
           </Typography>
           <Stack
             direction={{ xs: 'column', sm: 'row' }}
@@ -79,13 +92,19 @@ export default function Hero() {
             sx={{ pt: 2, width: { xs: '100%', sm: 'auto' } }}
           >
             <Button onClick={clickHandler} variant="contained" color="primary">
-              Start now
+            {lang === "EN" && "Start now"}
+            {lang === "DE" && "Jetzt starten"}
+            {lang === "VN" && "Bắt đầu ngay bây giờ"}
             </Button>
           </Stack>
           <Typography variant="caption" textAlign="center" sx={{ opacity: 0.8 }}>
-            By clicking &quot;Start now&quot; you agree to our&nbsp;
+           {lang === "EN" && 'By clicking "Start now" you agree to our'}
+           {lang === "DE" && 'Durch Klicken auf "Jetzt starten" stimmen Sie zu:'}
+           {lang === "VN" && 'Bằng cách nhấp vào "Bắt đầu ngay bây giờ", bạn đồng ý với:'}
             <Link href="/tos" color="primary">
-              Terms & Conditions
+              {lang === "EN" && "Terms & Conditions"}
+              {lang === "DE" && "Nutzungsbedingungen"}
+              {lang === "VN" && "Điều khoản sử dụng"}
             </Link>
             .
           </Typography>
