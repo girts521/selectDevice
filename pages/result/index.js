@@ -185,6 +185,8 @@ export default function Result() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          pl: {xs: 0},
+          pr: {xs: 0},
           pt: { xs: 14, sm: 20 },
           pb: { xs: 8, sm: 12 },
         }}
@@ -197,6 +199,7 @@ export default function Result() {
             alignSelf: "center",
             fontSize: "clamp(3.5rem, 10vw, 4rem)",
             pb: { xs: 8, sm: 12 },
+            textAlign: "center"
           }}
         >
           {lang === "EN" && "Any of these should work for you!"}
@@ -218,7 +221,7 @@ export default function Result() {
                     minWidth: 250,
                     cursor: "pointer",
                     marginBottom: 15,
-                    p: 7,
+                    p: {xs: 0, md: 7},
                   }}
                 >
                   <img
