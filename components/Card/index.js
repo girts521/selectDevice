@@ -11,7 +11,6 @@ import Paper from "@mui/material/Paper";
 export default function MediaCard({ title, content, image, id }) {
   const router = useRouter();
   const [elevation, setElevation] = React.useState(1);
-
   const handleClick = (e) => {
     e.preventDefault();
     router.push(`/post/${id}`);

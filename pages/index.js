@@ -7,6 +7,7 @@ import Blog from "../components/Blog";
 import Footer from "../components/Footer";
 import * as React from "react";
 import { Analytics } from '@vercel/analytics/react';
+import ProductCard from "../components/ProductCard";
 
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
         <Container>
           <Hero />
           <Blog />
+          <ProductCard />
         </Container>
     </>
   );
