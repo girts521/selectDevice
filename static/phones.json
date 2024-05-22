@@ -1,0 +1,18 @@
+{
+  "phones": [
+    {
+      "name": "Lenovo IdeaPad 1i IP1 15IAU7",
+      "ram": [8],
+      "display": ["Oled"],
+      "memory": ["512GB"],
+      "price": 399,
+      "url": "https://www.amazon.de/Lenovo-IdeaPad-Display-i3-1215U-Premium/dp/B0CGLR4KGX",
+      "img": [
+        "https://m.media-amazon.com/images/I/71Dt367G0HL._AC_SL1500_.jpg",
+        "https://m.media-amazon.com/images/I/51yvZEXXkUL._AC_SL1500_.jpg"
+      ],
+      "portability": "large",
+      "os": ["Android"]
+    }
+  ]
+}
