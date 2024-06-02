@@ -1,6 +1,6 @@
 import * as React from "react";
 import MistralClient from "@mistralai/mistralai";
-import data from "../../static/phones.json";
+// import data from "../../static/phones.json";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -18,7 +18,6 @@ import Box from "@mui/material/Box";
 import { useRouter } from "next/router";
 import { LanguageContext } from "../../context/LanguageContext";
 
-
 export default function PhoneResult() {
   const [params, setParams] = React.useState({});
   const [filteredResult, setFilteredResult] = React.useState([]);
@@ -26,6 +25,7 @@ export default function PhoneResult() {
   const [isDisabled, setisDisabled] = React.useState(false);
   const [loading, setloading] = React.useState(false);
   const { lang, setLang } = React.useContext(LanguageContext);
+  const [data, setData] = React.useState({});
 
   const router = useRouter();
 
@@ -36,57 +36,122 @@ export default function PhoneResult() {
     }
     const langCheck = localStorage.getItem("lang");
     setLang(langCheck);
-  }, []);
+
+    const getData = async () => {
+      const response = await fetch("/api/phones", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const result = await response.json();
+      console.log("phones: ", result)
+      setData(result)
+    };
+
+    getData()
+
+    }, []);
 
   React.useEffect(() => {
-    function filterPhones(phones, params) {
-      return phones
-        .filter((phone) => {
-          // Check if the laptop price is within the budget
-          if (params.budget && phone.price > params.budget) {
-            return false;
-          }
+    console.log("params: ", params)
+    if (Object.keys(params).length > 0 && Object.keys(data).length > 0) {
+      function filterPhones(phones, params) {
+        console.log("phones inside func: ", phones)
+        return phones
+          .filter((phone) => {
+            // Check if the  price is within the budget
+            if (params.budget && phone.price > params.budget) {
+              return false;
+            }
+            
+            if (!params.budget && phone.release_date && !phone.release_date.includes("2024")) {
+              return false;
+            }
 
-          // Check if the laptop OS matches the specified OS (assuming the OS is specified in the laptop name)
-          if (params.os && !phone.os.includes(params.os)) {
-            return false;
-          }
+            const year = parseInt(phone.release_date.split(" ")[2].replace(',',''))
+            if (year < 2023) {
+              return false;
+            }
+  
+            // Check if the  OS matches the specified OS (assuming the OS is specified in the laptop name)
+            // console.log(phone.os)
+            // const os = JSON.parse(phone.os)
+            if (params.os && !phone.os.includes(params.os)) {
+              return false;
+            }
+  
+            // Check if the  RAM matches the specified RAM
+            const phoneRam = JSON.parse(phone.ram)
+            let n = params.ram.length - 1
+            const resultBool = []
+            while(n >= 0){
+              console.log("n: ", n)
+              console.log("pramas of n: ",params.ram[n] )
+              if (!phoneRam.includes(`${params.ram[n]}GB`)) {
+                resultBool.push(false)
+              } else {
+                resultBool.push(true)
+              }
+              n = n -1;
+              console.log("here: ", n)
+            }
+            console.log("resultBool: ",resultBool)
+            if (!resultBool.includes(true)){
+              return false;
+            }
+  
+            // Check if the display size matches the specified display size
+            //   const displaySize = parseFloat(laptop.display[0].split(' ')[0]);
+            //   if (displaySize !== params.display) {
+            //     return false;
+            //   }
+  
+            // Check if the memory matches the specified memory
+            const phoneMemory = JSON.parse(phone.memory);
+            function checkMemory(memory, params) {
+              return memory.some(item => params.includes(item));
+            }
+            if (params.memory) {
+              const containsMemory = checkMemory(phoneMemory, params.memory)
+              if (!containsMemory) {
+                return false;
+              }
+            }
 
-          // Check if the laptop RAM matches the specified RAM
-          if (params.ram[0] && !phone.ram.includes(params.ram[0])) {
-            return false;
-          }
+            const diasplaySize = parseFloat(phone.display_size.split(' ')[0])
+            console.log("display: ", diasplaySize)
+            if(params.portability === "large" && diasplaySize < 6.6) {
+              return false;
+            }
+            if(params.portability === "small" && diasplaySize > 6.6) {
+              return false;
+            }
+            
+            console.log("gpu: ", phone.gpu)
+            if(params.gaming === true && !phone.cpu.includes("Snapdragon 8")){
+              return false;
+            }
+  
+            // Check if portability matches
+            // if (params.portability && phone.portability != params.portability) {
+            //   return false;
+            // }
+  
+            // If all checks pass, return true to include the laptop in the filtered list
+            return true;
+          })
+          .slice(0, 10); // Limit the results to 5 laptops
+      }
 
-          // Check if the laptop display size matches the specified display size
-          //   const displaySize = parseFloat(laptop.display[0].split(' ')[0]);
-          //   if (displaySize !== params.display) {
-          //     return false;
-          //   }
-
-          // Check if the laptop memory matches the specified memory
-          const phoneMemory = phone.memory[0];
-          if (params.memory && !params.memory.includes(phoneMemory)) {
-            return false;
-          }
-
-          // Check if portability matches
-          if (params.portability && phone.portability != params.portability) {
-            return false;
-          }
-
-          // If all checks pass, return true to include the laptop in the filtered list
-          return true;
-        })
-        .slice(0, 5); // Limit the results to 5 laptops
-    }
-    if (Object.keys(params).length > 0) {
-      const result = filterPhones(data.phones, params);
-
+      const result = filterPhones(data.data, params);
+      console.log("params: ", params)
+      console.log("filtered: ", result)
       if (result) {
-        setFilteredResult(result);
+        setFilteredResult(result.sort((a, b) => b.price - a.price));
       }
     }
-  }, [params]);
+  }, [data,params]);
 
   const handleClick = (url) => {
     router.push(url);
@@ -158,9 +223,10 @@ export default function PhoneResult() {
     const response = await fetch("/api/chat", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
+        
       },
-      body: JSON.stringify({ filteredResult, params, lang }),
+      body: JSON.stringify({ filteredResult, params, lang}),
     });
 
     const data = await response.json();
@@ -175,8 +241,8 @@ export default function PhoneResult() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          pl: {xs: 0},
-          pr: {xs: 0},
+          pl: { xs: 0 },
+          pr: { xs: 0 },
           pt: { xs: 14, sm: 20 },
           pb: { xs: 8, sm: 12 },
         }}
@@ -189,7 +255,7 @@ export default function PhoneResult() {
             alignSelf: "center",
             fontSize: "clamp(3.5rem, 10vw, 4rem)",
             pb: { xs: 8, sm: 12 },
-            textAlign: "center"
+            textAlign: "center",
           }}
         >
           {lang === "EN" && "Any of these should work for you!"}
@@ -211,11 +277,11 @@ export default function PhoneResult() {
                     minWidth: 250,
                     cursor: "pointer",
                     marginBottom: 15,
-                    p: {xs: 0, md: 7},
+                    p: { xs: 0, md: 7 },
                   }}
                 >
                   <img
-                    src={result.img[0]}
+                    src={result.img}
                     alt={result.name}
                     title={result.name}
                     style={{
@@ -243,16 +309,16 @@ export default function PhoneResult() {
                       variant="body2"
                       color="text.secondary"
                     >
-                      RAM: {result.ram}
+                      RAM: {result.ram.replace(/"/g, '').replace(/\[|\]/g, '').replace(/,/g, ' ')}
                     </Typography>
                     <Typography
                       component={"div"}
                       variant="body2"
                       color="text.secondary"
                     >
-                      {lang === "EN" && `Storage: ${result.memory}`}
-                      {lang === "DE" && `Speicher: ${result.memory}`}
-                      {lang === "VN" && `Lưu trữ: ${result.memory}`}
+                      {lang === "EN" && `Storage: ${result.memory.replace(/"/g, '').replace(/\[|\]/g, '').replace(/,/g, ' ')}`}
+                      {lang === "DE" && `Speicher: ${result.memory.replace(/"/g, '').replace(/\[|\]/g, '').replace(/,/g, ' ')}`}
+                      {lang === "VN" && `Lưu trữ: ${result.memory.replace(/"/g, '').replace(/\[|\]/g, '').replace(/,/g, ' ')}`}
                     </Typography>
                     {result.gpu && (
                       <Typography
@@ -273,35 +339,34 @@ export default function PhoneResult() {
                       {lang === "EN" && "Processor unit: "}
                       {lang === "DE" && "Prozessor: "}
                       {lang === "VN" && "Đơn vị xử lý trung tâm: "}
-                      {!isNaN(result.cpu)
+                      {result.cpu}
+                      {/* {!isNaN(result.cpu)
                         ? `Intel i${result.cpu}`
-                        : `Apple ${result.cpu}`}
+                        : `Apple ${result.cpu}`} */}
                     </Typography>
                     <Typography
                       component={"div"}
                       variant="body2"
                       color="text.secondary"
                     >
-                      {lang === "EN" &&
-                        "Screen size: "}
+                      {lang === "EN" && "Screen size: "}
                       {lang === "DE" && "Bildschirmgröße: "}
-                      {lang === "VN" &&
-                        "Kích thước màn hình: "}
-                      {result.portability}
+                      {lang === "VN" && "Kích thước màn hình: "}
+                      {result.display_size}
                     </Typography>
                     <Typography
                       component={"div"}
                       variant="body2"
                       color="text.secondary"
                     >
-                      OS:
-                      {result.os.map((os) => {
+                      OS: {result.os.replace(/"/g, '').replace(/\[|\]/g, '').replace(/,/g, ' ')}
+                      {/* {JSON.parse(result.os).map((os) => {
                         if (result.os.indexOf(os) === result.os.length - 1) {
                           return `${os}.`;
                         } else {
                           return `${os}, `;
                         }
-                      })}
+                      })} */}
                     </Typography>
                     <Typography
                       component={"div"}
@@ -339,18 +404,21 @@ export default function PhoneResult() {
             pb: { xs: 8, sm: 12 },
           }}
         >
-         {lang === "EN" && "Still a bit lost?\u00a0"}
-         {lang === "DE" && "Noch etwas verwirrt?\u00a0"}
-         {lang === "VN" && "Vẫn còn lúng túng chút?\u00a0"}
+          {lang === "EN" && "Still a bit lost?\u00a0"}
+          {lang === "DE" && "Noch etwas verwirrt?\u00a0"}
+          {lang === "VN" && "Vẫn còn lúng túng chút?\u00a0"}
         </Typography>
         <Typography
           textAlign="center"
           color="text.primary"
           sx={{ alignSelf: "center", width: { sm: "100%", md: "80%" }, pb: 7 }}
         >
-          {lang === "EN" && "If you are still not sure about which one will be better and why, then\n you can let our AI narrow it down and explain a bit more."}
-          {lang === "DE" && "Wenn Sie sich immer noch nicht sicher sind, welche Option besser ist und warum, dann können Sie unsere KI verwenden, um die Auswahl einzugrenzen und weitere Erklärungen zu geben."}
-          {lang === "VN" && "Nếu bạn vẫn chưa chắc chắn về sự lựa chọn nào tốt hơn và tại sao, thì bạn có thể để AI của chúng tôi giúp loại bỏ các lựa chọn và giải thích thêm."}
+          {lang === "EN" &&
+            "If you are still not sure about which one will be better and why, then\n you can let our AI narrow it down and explain a bit more."}
+          {lang === "DE" &&
+            "Wenn Sie sich immer noch nicht sicher sind, welche Option besser ist und warum, dann können Sie unsere KI verwenden, um die Auswahl einzugrenzen und weitere Erklärungen zu geben."}
+          {lang === "VN" &&
+            "Nếu bạn vẫn chưa chắc chắn về sự lựa chọn nào tốt hơn và tại sao, thì bạn có thể để AI của chúng tôi giúp loại bỏ các lựa chọn và giải thích thêm."}
         </Typography>
         <Button
           onClick={getAnswer}

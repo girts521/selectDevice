@@ -7,6 +7,11 @@ export default async function handler(req, res) {
 
   if (req.method === "POST") {
     const { filteredResult, params, lang } = req.body;
+    let type = "laptops"
+
+    if(params.photos) {
+      type = "smartphones"
+    }
 
     try {
       const chatResponse = await client.chat({
@@ -15,11 +20,11 @@ export default async function handler(req, res) {
           { role: "system", content: JSON.stringify(filteredResult) },
           {
             role: "user",
-            content: `It is very important that you answer only in language: ${lang}. From the laptops provided in the json object, suggest which will be best for these use cases: ${params.useCase.map(
+            content: `It is very important that you answer only in language: ${lang}. From the ${type} provided in the json object, suggest which will be best for these use cases: ${params.useCase.map(
               (el) => {
                 return `${el} `;
               }
-            )}. Also explain the reasons why in some detail. But it has to be easy to understand for anyone not very familiar with laptops.`,
+            )}. Also explain the reasons why in some detail. But it has to be easy to understand for anyone not very familiar with  ${type}.`,
           },
         ],
       });

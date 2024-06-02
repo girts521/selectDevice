@@ -145,12 +145,12 @@ export default function PhoneHorizontalLinearStepper() {
         newParams.useCase = useCase;
         useCase.map((el) => {
           if (el === "basic") {
-            newParams.ram = [8];
+            newParams.ram = [4, 6, 8];
             newParams.memory = null;
             newParams.gaming = false
           }
           if (el === "photos") {
-            newParams.ram = [8];
+            newParams.ram = [8, 12];
             newParams.memory = ["256GB", "512GB"];
             newParams.gaming = false
             newParams.photos = true
@@ -710,7 +710,7 @@ export default function PhoneHorizontalLinearStepper() {
                               onChange={osChangeHandler}
                             >
                               <MenuItem value={"Android"}>Android</MenuItem>
-                              <MenuItem value={"Apple"}>Apple</MenuItem>
+                              <MenuItem value={"iOS"}>Apple</MenuItem>
                             </Select>
                           </FormControl>
                         )}
