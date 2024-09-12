@@ -12,17 +12,16 @@ import Checkbox from "@mui/material/Checkbox";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { useRouter } from "next/router";
-import My_AppBar from "../AppBar";
-import Footer from "../Footer";
 import { LanguageContext } from "../../context/LanguageContext";
 
 let steps = ["Budget", "Use case", "Portability", "Operating system"];
 
+// TODO:
+// Clean this mess!!! Maybe separate components for each language. 
 export default function PhoneHorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
@@ -30,7 +29,6 @@ export default function PhoneHorizontalLinearStepper() {
   const [useCase, setUseCase] = React.useState(["basic"]);
   const [portability, setPortability] = React.useState(0);
   const [os, setOS] = React.useState(null);
-  const [params, setParams] = React.useState(null);
 
   const nextRef = React.useRef();
   const router = useRouter();
@@ -40,6 +38,8 @@ export default function PhoneHorizontalLinearStepper() {
     return `${value}$`;
   }
 
+  // TODO:
+  // Actually implement functionality for optional steps
   const isStepOptional = (step) => {
     return false;
   };

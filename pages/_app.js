@@ -6,19 +6,11 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 import Head from "next/head";
 import CssBaseline from "@mui/material/CssBaseline";
-import { createContext, useState } from 'react';
 import { LanguageContext } from "../context/LanguageContext";
-
-
 
 const darkTheme = createTheme({
   palette: {
-    // primary: {
-    //   main: "#e76f51",
-    // },
-    // secondary: {
-    //   main: "#780000",
-    // },
+// TODO...
   },
 });
 

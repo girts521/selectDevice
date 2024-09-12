@@ -2,13 +2,9 @@ import * as React from "react";
 import { useRouter } from "next/router";
 import { Typography } from "@mui/material";
 import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import My_AppBar from "../../components/AppBar";
-import Footer from "../../components/Footer";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -16,26 +12,14 @@ import HomeIcon from "@mui/icons-material/Home";
 import ShareIcon from "@mui/icons-material/Share";
 import ShareList from "../../components/ShareList";
 import Popper from "@mui/material/Popper";
-import Head from "next/head";
 import CircularProgress from "@mui/material/CircularProgress";
 import { LanguageContext } from "../../context/LanguageContext";
 
-const darkTheme = createTheme({
-  palette: {
-    // primary: {
-    //   main: "#e76f51",
-    // },
-    // secondary: {
-    //   main: "#780000",
-    // },
-  },
-});
-
+// TODO:
+// Again, the language cleanup must be done!
 export default function Post() {
   const router = useRouter();
   let postId = router.query.id;
-  let id;
-
   const [blogPost, setBlogPost] = React.useState(null);
   const [value, setValue] = React.useState(null);
   const [anchorEl, setAnchorEl] = React.useState(null);

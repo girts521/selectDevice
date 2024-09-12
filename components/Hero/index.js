@@ -5,24 +5,17 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { Typewriter } from 'react-simple-typewriter'
 import { useRouter } from 'next/router'
-import { useTheme } from '@mui/material/styles';
 import { LanguageContext } from "../../context/LanguageContext";
-
 
 export default function Hero() {
   const router = useRouter();
   const clickHandler = () => {
     router.push('/form')
   }
-
   const { lang, setLang } = React.useContext(LanguageContext);
-
-  const theme = useTheme();
-
 
   React.useEffect(() => {
     const langCheck = localStorage.getItem("lang")

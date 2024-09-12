@@ -20,8 +20,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
 
-
-
+// TODO:
+// For sure can be refactored to use some common component
 export default function ShareList({url}) {
   return (
     <List>

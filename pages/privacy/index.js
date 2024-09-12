@@ -1,7 +1,5 @@
 import * as React from "react";
 import Container from "@mui/material/Container";
-import My_AppBar from "../../components/AppBar";
-import Footer from "../../components/Footer";
 
 export default function Tos() {
   return (

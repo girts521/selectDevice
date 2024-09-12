@@ -4,27 +4,18 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import { IconButton, Link } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import DrawerList from "../Drawer";
 import Drawer from "@mui/material/Drawer";
 import * as React from "react";
-import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import NativeSelect from '@mui/material/NativeSelect';
-import { useRouter } from 'next/router';
 import { LanguageContext } from "../../context/LanguageContext";
-
-let langCheck = "EN";
 
 export default function My_AppBar() {
   const [open, setOpen] = React.useState(false);
-  // const [lang, setLang] = React.useState(null)
   const enRef = React.useRef();
   const deRef = React.useRef();
   const vnRef = React.useRef();
-
-  const router = useRouter();
-
   const { lang, setLang } = React.useContext(LanguageContext);
   
 
@@ -78,7 +69,6 @@ export default function My_AppBar() {
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
                 <NativeSelect
-                  // defaultValue={lang}
                   onChange={toggleLang}
                   inputProps={{
                     name: "age",

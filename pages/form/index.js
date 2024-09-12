@@ -1,19 +1,11 @@
 import * as React from "react";
-import CssBaseline from "@mui/material/CssBaseline";
-import Container from "@mui/material/Container";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import My_AppBar from "../../components/AppBar";
-import Footer from "../../components/Footer";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import { alpha } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Image from "next/image";
-import { Cursor } from "react-simple-typewriter";
 import { useRouter } from "next/router";
-import Head from "next/head";
 import { LanguageContext } from "../../context/LanguageContext";
 
 const Item = styled(Paper)(({ theme }) => ({

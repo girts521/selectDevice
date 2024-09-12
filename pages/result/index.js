@@ -1,15 +1,9 @@
 import * as React from "react";
-import MistralClient from "@mistralai/mistralai";
 import data from "../../static/laptops.json";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
-import My_AppBar from "../../components/AppBar";
-import Footer from "../../components/Footer";
 import Link from "@mui/material/Link";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
@@ -18,7 +12,8 @@ import Box from "@mui/material/Box";
 import { useRouter } from "next/router";
 import { LanguageContext } from "../../context/LanguageContext";
 
-
+// TODO:
+// Phone result and this can be combined, right?
 export default function Result() {
   const [params, setParams] = React.useState({});
   const [filteredResult, setFilteredResult] = React.useState([]);
@@ -56,12 +51,6 @@ export default function Result() {
           if (params.ram[0] && !laptop.ram.includes(params.ram[0])) {
             return false;
           }
-
-          // Check if the laptop display size matches the specified display size
-          //   const displaySize = parseFloat(laptop.display[0].split(' ')[0]);
-          //   if (displaySize !== params.display) {
-          //     return false;
-          //   }
 
           // Check if the laptop memory matches the specified memory
           const laptopMemory = laptop.memory[0];

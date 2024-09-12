@@ -1,15 +1,8 @@
 import * as React from "react";
-import MistralClient from "@mistralai/mistralai";
-// import data from "../../static/phones.json";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
-import My_AppBar from "../../components/AppBar";
-import Footer from "../../components/Footer";
 import Link from "@mui/material/Link";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
@@ -18,6 +11,8 @@ import Box from "@mui/material/Box";
 import { useRouter } from "next/router";
 import { LanguageContext } from "../../context/LanguageContext";
 
+// TODO:
+// Refactor! Maybe separate function for filtering. Something needs to be done with languages. 
 export default function PhoneResult() {
   const [params, setParams] = React.useState({});
   const [filteredResult, setFilteredResult] = React.useState([]);
@@ -48,7 +43,6 @@ export default function PhoneResult() {
       console.log("phones: ", result)
       setData(result)
     };
-
     getData()
 
     }, []);
@@ -75,8 +69,6 @@ export default function PhoneResult() {
             }
   
             // Check if the  OS matches the specified OS (assuming the OS is specified in the laptop name)
-            // console.log(phone.os)
-            // const os = JSON.parse(phone.os)
             if (params.os && !phone.os.includes(params.os)) {
               return false;
             }
@@ -86,27 +78,17 @@ export default function PhoneResult() {
             let n = params.ram.length - 1
             const resultBool = []
             while(n >= 0){
-              console.log("n: ", n)
-              console.log("pramas of n: ",params.ram[n] )
               if (!phoneRam.includes(`${params.ram[n]}GB`)) {
                 resultBool.push(false)
               } else {
                 resultBool.push(true)
               }
               n = n -1;
-              console.log("here: ", n)
             }
-            console.log("resultBool: ",resultBool)
             if (!resultBool.includes(true)){
               return false;
             }
-  
-            // Check if the display size matches the specified display size
-            //   const displaySize = parseFloat(laptop.display[0].split(' ')[0]);
-            //   if (displaySize !== params.display) {
-            //     return false;
-            //   }
-  
+
             // Check if the memory matches the specified memory
             const phoneMemory = JSON.parse(phone.memory);
             function checkMemory(memory, params) {
@@ -120,7 +102,6 @@ export default function PhoneResult() {
             }
 
             const diasplaySize = parseFloat(phone.display_size.split(' ')[0])
-            console.log("display: ", diasplaySize)
             if(params.portability === "large" && diasplaySize < 6.6) {
               return false;
             }
@@ -128,25 +109,16 @@ export default function PhoneResult() {
               return false;
             }
             
-            console.log("gpu: ", phone.gpu)
             if(params.gaming === true && !phone.cpu.includes("Snapdragon 8")){
               return false;
             }
-  
-            // Check if portability matches
-            // if (params.portability && phone.portability != params.portability) {
-            //   return false;
-            // }
-  
             // If all checks pass, return true to include the laptop in the filtered list
             return true;
           })
-          .slice(0, 10); // Limit the results to 5 laptops
+          .slice(0, 10);
       }
 
       const result = filterPhones(data.data, params);
-      console.log("params: ", params)
-      console.log("filtered: ", result)
       if (result) {
         setFilteredResult(result.sort((a, b) => b.price - a.price));
       }
@@ -340,9 +312,6 @@ export default function PhoneResult() {
                       {lang === "DE" && "Prozessor: "}
                       {lang === "VN" && "Đơn vị xử lý trung tâm: "}
                       {result.cpu}
-                      {/* {!isNaN(result.cpu)
-                        ? `Intel i${result.cpu}`
-                        : `Apple ${result.cpu}`} */}
                     </Typography>
                     <Typography
                       component={"div"}
@@ -360,13 +329,6 @@ export default function PhoneResult() {
                       color="text.secondary"
                     >
                       OS: {result.os.replace(/"/g, '').replace(/\[|\]/g, '').replace(/,/g, ' ')}
-                      {/* {JSON.parse(result.os).map((os) => {
-                        if (result.os.indexOf(os) === result.os.length - 1) {
-                          return `${os}.`;
-                        } else {
-                          return `${os}, `;
-                        }
-                      })} */}
                     </Typography>
                     <Typography
                       component={"div"}

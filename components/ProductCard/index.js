@@ -1,14 +1,15 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
 
+// TODO:
+// Clean this mess!! 
+// Maybe separate components for each category? With some common component? 
 export default function ProductCard() {
   const router = useRouter();
   const [elevation, setElevation] = React.useState(1);
@@ -25,11 +26,9 @@ export default function ProductCard() {
         headers: {
           "Content-Type": "application/json",
         },
-        // body: JSON.stringify({ filteredResult, params, lang }),
       });
 
       const data = await response.json();
-      console.log("data:", data);
       setkitchen_bestsellers(data.kitchen_bestsellers);
       setrice_cooker(data.rice_cooker);
       setkosmetik(data.kosmetik);
@@ -77,7 +76,6 @@ export default function ProductCard() {
           flexDirection: "row",
           alignItems: "center",
           flexWrap: "wrap",
-          //   pt: { xs: 14, sm: 20 },
           pb: { xs: 8, sm: 12 },
         }}
       >
@@ -159,7 +157,6 @@ export default function ProductCard() {
           flexDirection: "row",
           alignItems: "center",
           flexWrap: "wrap",
-          //   pt: { xs: 14, sm: 20 },
           pb: { xs: 8, sm: 12 },
         }}
       >
@@ -241,7 +238,6 @@ export default function ProductCard() {
           flexDirection: "row",
           alignItems: "center",
           flexWrap: "wrap",
-          //   pt: { xs: 14, sm: 20 },
           pb: { xs: 8, sm: 12 },
         }}
       >
@@ -323,7 +319,6 @@ export default function ProductCard() {
           flexDirection: "row",
           alignItems: "center",
           flexWrap: "wrap",
-          //   pt: { xs: 14, sm: 20 },
           pb: { xs: 8, sm: 12 },
         }}
       >

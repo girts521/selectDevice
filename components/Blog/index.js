@@ -1,21 +1,11 @@
 import * as React from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MediaCard from "../Card";
 import CircularProgress from "@mui/material/CircularProgress";
 import { LanguageContext } from "../../context/LanguageContext";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
 
 export default function Blog() {
   const [blogPost, setBlogPost] = React.useState(null);
@@ -39,7 +29,6 @@ export default function Blog() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          //   pt: { xs: 14, sm: 20 },
           pb: { xs: 8, sm: 12 },
         }}
       >
