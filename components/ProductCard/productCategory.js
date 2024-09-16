@@ -2,7 +2,8 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
-
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
 
 export default function ProductCategory({elevation, title, productArr, handleClick}) {
   return (
