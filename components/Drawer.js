@@ -11,6 +11,7 @@ import FeedIcon from "@mui/icons-material/Feed";
 import { Link } from "@mui/material";
 import * as React from "react";
 import { LanguageContext } from "../context/LanguageContext";
+import DrawerLink from "./DrawerLink"
 
 export default function DrawerList(props) {
   const { lang, setLang } = React.useContext(LanguageContext);
@@ -37,56 +38,17 @@ export default function DrawerList(props) {
       <List>
         {lang === "EN" &&
           buttonsEN.map((text, index) => (
-            <Link underline="none" color={"inherit"} href={urls[index]}>
-              {" "}
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index === 0 && <HomeIcon />}
-                    {index === 1 && <FeedIcon />}
-                    {index === 2 && <ComputerIcon />}
-                    {index === 3 && <SmartphoneIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
+            <DrawerLink text={text} index={index} urls={urls} />
           ))}
 
         {lang === "DE" &&
           buttonsDE.map((text, index) => (
-            <Link underline="none" color={"inherit"} href={urls[index]}>
-              {" "}
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index === 0 && <HomeIcon />}
-                    {index === 1 && <FeedIcon />}
-                    {index === 2 && <ComputerIcon />}
-                    {index === 3 && <SmartphoneIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
+            <DrawerLink text={text} index={index} urls={urls} />
           ))}
 
         {lang === "VN" &&
           buttonsVN.map((text, index) => (
-            <Link underline="none" color={"inherit"} href={urls[index]}>
-              {" "}
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index === 0 && <HomeIcon />}
-                    {index === 1 && <FeedIcon />}
-                    {index === 2 && <ComputerIcon />}
-                    {index === 3 && <SmartphoneIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
+            <DrawerLink text={text} index={index} urls={urls} />
           ))}
       </List>
     </Box>
