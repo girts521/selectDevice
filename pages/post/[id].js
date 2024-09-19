@@ -15,8 +15,6 @@ import Popper from "@mui/material/Popper";
 import CircularProgress from "@mui/material/CircularProgress";
 import { LanguageContext } from "../../context/LanguageContext";
 
-// TODO:
-// Again, the language cleanup must be done!
 export default function Post() {
   const router = useRouter();
   let postId = router.query.id;
@@ -146,56 +144,15 @@ export default function Post() {
             }}
           >
             <BottomNavigationAction label="Home" icon={<HomeIcon />} />
-            {lang === "EN" && (
               <BottomNavigationAction
                 onClick={handleClick}
-                label="Share"
+                label={lang === "EN" ? "Share" : lang === "DE" ? "Teilen" : lang === "VN" ? "Chia sẻ" : ""}
                 icon={<ShareIcon />}
               />
-            )}
-
-            {lang === "EN" && (
               <BottomNavigationAction
-                label="Next"
+                label={lang === "EN" ? "Next" : lang === "DE" ? "Weiter" : lang === "VN" ? "Tiếp theo" : ""}
                 icon={<ArrowForwardIosIcon />}
               />
-            )}
-
-            {lang === "DE" && (
-              <BottomNavigationAction
-                onClick={handleClick}
-                label="Teilen"
-                icon={<ShareIcon />}
-              />
-            )}
-
-            {lang === "DE" && (
-              <BottomNavigationAction
-                value={2}
-                label="Weiter"
-                icon={<ArrowForwardIosIcon />}
-              />
-            )}
-
-            {lang === "VN" && (
-            
-                <BottomNavigationAction
-                  onClick={handleClick}
-                  label="Chia sẻ"
-                  icon={<ShareIcon />}
-                />
-
-            )}
-
-            {lang === "VN" && (
-
-                <BottomNavigationAction
-                value={2}
-                  label="Tiếp theo"
-                  icon={<ArrowForwardIosIcon />}
-                />
-              
-            )}
           </BottomNavigation>
         </Box>
       </Paper>
