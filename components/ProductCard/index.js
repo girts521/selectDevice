@@ -3,9 +3,6 @@ import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import ProductCategory from "./productCategory"
 
-// TODO:
-// Clean this mess!! 
-// Maybe separate components for each category? With some common component? 
 export default function ProductCard() {
   const router = useRouter();
   const [elevation, setElevation] = React.useState(1);

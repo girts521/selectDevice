@@ -1,14 +1,5 @@
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import ComputerIcon from "@mui/icons-material/Computer";
-import SmartphoneIcon from "@mui/icons-material/Smartphone";
-import HomeIcon from "@mui/icons-material/Home";
-import FeedIcon from "@mui/icons-material/Feed";
-import { Link } from "@mui/material";
 import * as React from "react";
 import { LanguageContext } from "../context/LanguageContext";
 import DrawerLink from "./DrawerLink"
@@ -31,8 +22,6 @@ export default function DrawerList(props) {
     setLang(langCheck);
   }, []);
 
-  // TODO:
-  // Maybe the languages can use a common component
   return (
     <Box sx={{ width: 250 }} role="presentation" onClick={props.close(false)}>
       <List>
