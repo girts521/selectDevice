@@ -15,10 +15,6 @@ import Popper from "@mui/material/Popper";
 import CircularProgress from "@mui/material/CircularProgress";
 import { LanguageContext } from "../../context/LanguageContext";
 
-// TODO:
-// Again, the language cleanup must be done!
-
-
 export default function Post() {
   const router = useRouter();
   let postId = router.query.id;
@@ -148,20 +144,16 @@ export default function Post() {
             }}
           >
             <BottomNavigationAction label="Home" icon={<HomeIcon />} />
-            {lang === "EN" && (
               <BottomNavigationAction
                 onClick={handleClick}
-                label="Share"
+                label={lang === "EN" ? "Share" : lang === "DE" ? "Teilen" : lang === "VN" ? "Chia sẻ" : ""}
                 icon={<ShareIcon />}
               />
-            )}
-
-            {lang === "EN" && (
               <BottomNavigationAction
-                label="Next"
+                label={lang === "EN" ? "Next" : lang === "DE" ? "Weiter" : lang === "VN" ? "Tiếp theo" : ""}
                 icon={<ArrowForwardIosIcon />}
               />
-            )}
+  
 
             {lang === "DE" && (
               <BottomNavigationAction

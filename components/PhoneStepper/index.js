@@ -352,7 +352,6 @@ export default function PhoneHorizontalLinearStepper() {
                   </Typography>
                   <Box>
                     <FormGroup>
-                      {lang === "EN" && (
                         <FormControlLabel
                           control={
                             <Checkbox
@@ -361,37 +360,9 @@ export default function PhoneHorizontalLinearStepper() {
                               checked
                             />
                           }
-                          label="General web browsing, videos."
+                          label={lang === "EN" ? "General web browsing, videos." : lang === "DE" ? "Allgemeines Surfen im Internet, Videos." : lang === "VN" ? "Duyệt web chung, xem video." : ""}
                         />
-                      )}
 
-                      {lang === "DE" && (
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              onChange={useCaseOnChangeHandler}
-                              value={"basic"}
-                              checked
-                            />
-                          }
-                          label="Allgemeines Surfen im Internet, Videos."
-                        />
-                      )}
-
-                      {lang === "VN" && (
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              onChange={useCaseOnChangeHandler}
-                              value={"basic"}
-                              checked
-                            />
-                          }
-                          label="Duyệt web chung, xem video."
-                        />
-                      )}
-
-                      {lang === "EN" && (
                         <FormControlLabel
                           control={
                             <Checkbox
@@ -399,35 +370,9 @@ export default function PhoneHorizontalLinearStepper() {
                               value={"photos"}
                             />
                           }
-                          label="Photos, Photos, Photos"
+                          label={lang === "EN" ? "Photos, Photos, Photos" : lang === "DE" ? "Fotos, Fotos, Fotos" : lang === "VN" ? "Ảnh, Ảnh, Ảnh" : ""}
                         />
-                      )}
 
-                      {lang === "DE" && (
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              onChange={useCaseOnChangeHandler}
-                              value={"photos"}
-                            />
-                          }
-                          label="Fotos, Fotos, Fotos"
-                        />
-                      )}
-
-                      {lang === "VN" && (
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              onChange={useCaseOnChangeHandler}
-                              value={"photos"}
-                            />
-                          }
-                          label="Ảnh, Ảnh, Ảnh"
-                        />
-                      )}
-
-                      {lang === "EN" && (
                         <FormControlLabel
                           control={
                             <Checkbox
@@ -435,35 +380,9 @@ export default function PhoneHorizontalLinearStepper() {
                               value={"productivity"}
                             />
                           }
-                          label="Productivity."
+                          label={lang === "EN" ? "Productivity." : lang === "DE" ? "Produktivität." : lang === "VN" ? "Năng suất." : ""}
                         />
-                      )}
 
-                      {lang === "DE" && (
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              onChange={useCaseOnChangeHandler}
-                              value={"productivity"}
-                            />
-                          }
-                          label="Produktivität."
-                        />
-                      )}
-
-                      {lang === "VN" && (
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              onChange={useCaseOnChangeHandler}
-                              value={"productivity"}
-                            />
-                          }
-                          label="Năng suất."
-                        />
-                      )}
-
-                      {lang === "EN" && (
                         <FormControlLabel
                           control={
                             <Checkbox
@@ -471,33 +390,8 @@ export default function PhoneHorizontalLinearStepper() {
                               value={"gaming"}
                             />
                           }
-                          label="Gaming."
+                          label={lang === "EN" ? "Gaming." : lang === "DE" ? "Gaming." : lang === "VN" ? "Chơi game." : ""}
                         />
-                      )}
-
-                      {lang === "DE" && (
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              onChange={useCaseOnChangeHandler}
-                              value={"gaming"}
-                            />
-                          }
-                          label="Gaming."
-                        />
-                      )}
-
-                      {lang === "VN" && (
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              onChange={useCaseOnChangeHandler}
-                              value={"gaming"}
-                            />
-                          }
-                          label="Chơi game."
-                        />
-                      )}
                     </FormGroup>
                   </Box>
                 </Box>
@@ -540,93 +434,30 @@ export default function PhoneHorizontalLinearStepper() {
                         defaultValue={1}
                         name="portability-buttons-group"
                       >
-                        {lang === "EN" && (
                           <FormControlLabel
                             value={1}
                             control={
                               <Radio onChange={portabilityChangeHandler} />
                             }
-                            label="Not important at all."
+                            label={lang === "EN" ? "Not important at all." : lang === "DE" ? "Überhaupt nicht wichtig." : lang === "VN" ? "Không quan trọng lắm." : ""}
                           />
-                        )}
 
-                        {lang === "DE" && (
-                          <FormControlLabel
-                            value={1}
-                            control={
-                              <Radio onChange={portabilityChangeHandler} />
-                            }
-                            label="Überhaupt nicht wichtig."
-                          />
-                        )}
 
-                        {lang === "VN" && (
-                          <FormControlLabel
-                            value={1}
-                            control={
-                              <Radio onChange={portabilityChangeHandler} />
-                            }
-                            label="Không quan trọng lắm."
-                          />
-                        )}
-                        {lang === "EN" && (
                           <FormControlLabel
                             value={"small"}
                             control={
                               <Radio onChange={portabilityChangeHandler} />
                             }
-                            label="Smaller is better!"
+                            label={lang === "EN" ? "Smaller is better!" : lang === "DE" ? "Kleiner ist besser!" : lang === "VN" ? "Nhỏ hơn thì tốt hơn!" : ""}
                           />
-                        )}
 
-                        {lang === "DE" && (
-                          <FormControlLabel
-                            value={"small"}
-                            control={
-                              <Radio onChange={portabilityChangeHandler} />
-                            }
-                            label="Kleiner ist besser!"
-                          />
-                        )}
-
-                        {lang === "VN" && (
-                          <FormControlLabel
-                            value={"small"}
-                            control={
-                              <Radio onChange={portabilityChangeHandler} />
-                            }
-                            label="Nhỏ hơn thì tốt hơn!"
-                          />
-                        )}
-                        {lang === "EN" && (
                           <FormControlLabel
                             value={"large"}
                             control={
                               <Radio onChange={portabilityChangeHandler} />
                             }
-                            label="Larger is better!"
+                            label={lang === "EN" ? "Larger is better!" : lang === "DE" ? "Größer ist besser!" : lang === "VN" ? "Lớn hơn thì tốt hơn!" : ""}
                           />
-                        )}
-
-                        {lang === "DE" && (
-                          <FormControlLabel
-                            value={"large"}
-                            control={
-                              <Radio onChange={portabilityChangeHandler} />
-                            }
-                            label="Größer ist besser!"
-                          />
-                        )}
-
-                        {lang === "VN" && (
-                          <FormControlLabel
-                            value={"large"}
-                            control={
-                              <Radio onChange={portabilityChangeHandler} />
-                            }
-                            label="Lớn hơn thì tốt hơn!"
-                          />
-                        )}
                       </RadioGroup>
                     </FormControl>
                   </Box>
@@ -671,29 +502,12 @@ export default function PhoneHorizontalLinearStepper() {
                         defaultValue={0}
                         name="OSradio-buttons-group"
                       >
-                        {lang === "EN" && (
                           <FormControlLabel
                             value={"Android"}
                             control={<Radio onChange={osChangeHandler} />}
-                            label="Yes!"
+                            label={lang === "EN" ? "Yes!" : lang === "DE" ? "Ja!" : lang === "VN" ? "Vâng!" : ""}
                           />
-                        )}
 
-                        {lang === "DE" && (
-                          <FormControlLabel
-                            value={"Android"}
-                            control={<Radio onChange={osChangeHandler} />}
-                            label="Ja!"
-                          />
-                        )}
-
-                        {lang === "VN" && (
-                          <FormControlLabel
-                            value={"Android"}
-                            control={<Radio onChange={osChangeHandler} />}
-                            label="Vâng!"
-                          />
-                        )}
                         {os && (
                           <FormControl
                             sx={{ marginTop: 2, marginBottom: 2 }}
@@ -714,53 +528,19 @@ export default function PhoneHorizontalLinearStepper() {
                             </Select>
                           </FormControl>
                         )}
-                        {lang === "EN" && (
                           <>
                             <FormControlLabel
                               value={1}
                               control={<Radio />}
-                              label="Not really."
+                              label={lang === "EN" ? "Not really." : lang === "DE" ? "Nicht wirklich." : lang === "VN" ? "Không quá." : ""}
                             />
 
                             <FormControlLabel
                               value={0}
                               control={<Radio />}
-                              label="I am not sure."
+                              label={lang === "EN" ? "I am not sure." : lang === "DE" ? "Ich bin mir nicht sicher." : lang === "VN" ? "Tôi chưa chắc." : ""}
                             />
                           </>
-                        )}
-
-                        {lang === "DE" && (
-                          <>
-                            <FormControlLabel
-                              value={1}
-                              control={<Radio />}
-                              label="Nicht wirklich."
-                            />
-
-                            <FormControlLabel
-                              value={0}
-                              control={<Radio />}
-                              label="Ich bin mir nicht sicher."
-                            />
-                          </>
-                        )}
-
-                        {lang === "VN" && (
-                          <>
-                            <FormControlLabel
-                              value={1}
-                              control={<Radio />}
-                              label="Không quá."
-                            />
-
-                            <FormControlLabel
-                              value={0}
-                              control={<Radio />}
-                              label="Tôi chưa chắc."
-                            />
-                          </>
-                        )}
                       </RadioGroup>
                     </FormControl>
                   </Box>
