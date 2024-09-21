@@ -17,6 +17,8 @@ import { LanguageContext } from "../../context/LanguageContext";
 
 // TODO:
 // Again, the language cleanup must be done!
+
+
 export default function Post() {
   const router = useRouter();
   let postId = router.query.id;
@@ -67,7 +69,7 @@ export default function Post() {
   };
 
   const open = Boolean(anchorEl);
-  const popId = open ? "simple-popper" : undefined;
+  const popId = open ? "simple-popper" : BottomNavigationAction;
 
   return (
     <>
@@ -178,7 +180,7 @@ export default function Post() {
             )}
 
             {lang === "VN" && (
-            
+
                 <BottomNavigationAction
                   onClick={handleClick}
                   label="Chia sẻ"
@@ -194,7 +196,7 @@ export default function Post() {
                   label="Tiếp theo"
                   icon={<ArrowForwardIosIcon />}
                 />
-              
+
             )}
           </BottomNavigation>
         </Box>

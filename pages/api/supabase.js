@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
-
-// Create a single supabase client for interacting with your database
+// TODO:
+// Do we need 2 clients in these cases? In phones and here?
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_KEY
