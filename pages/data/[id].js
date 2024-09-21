@@ -15,7 +15,7 @@ export default function ProductDashboard() {
       const fetchData = async () => {
         console.log("product id: ", productId);
         const response = await fetch(
-          `http://127.0.0.1:5000/data?id=${productId}`,
+          `http://139.162.178.7:5000/data?id=${productId}`,
           {
             method: "GET",
             headers: {
