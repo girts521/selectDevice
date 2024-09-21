@@ -15,7 +15,7 @@ export default function ProductDashboard() {
       const fetchData = async () => {
         console.log("product id: ", productId);
         const response = await fetch(
-          `http://139.162.178.7:5000/data?id=${productId}`,
+          `https://api.mytechfinder.info//data?id=${productId}`,
           {
             method: "GET",
             headers: {
