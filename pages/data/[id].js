@@ -81,35 +81,27 @@ export default function ProductDashboard() {
       }
       <Container
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "100%",
-            // overflow: "hidden", // Ensure that content does not overflow the container
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+              padding: { xs: 2, sm: 4 }, // Add padding for mobile
+              overflow: "hidden",
           }}
       >
-        <Plot
-            data={[
-              {
-                x: data.date,
-                y: data.price,
-                type: "scatter",
-                mode: "lines+markers",
-                marker: { color: "blue" },
-                name: "GDP per Capita",
-              },
-            ]}
-            layout={{
-              title: "Price History",
-              xaxis: { title: "Date" },
-              yaxis: { title: "Price in Euro" },
-              autosize: true, // Makes the plot responsive
-              width: "100%", // Ensure plot adapts to the container
-            }}
-            style={{ width: "100%", maxWidth: "90vw", height: "400px" }} // Set maxWidth to limit the overflow
-            config={{ responsive: true }} // Enable responsive configuration
-        />
+          <Plot
+              data={[{ x: data.date, y: data.price, type: "scatter", mode: "lines+markers", marker: { color: "blue" }, name: "GDP per Capita" }]}
+              layout={{
+                  title: "Price History",
+                  xaxis: { title: "Date" },
+                  yaxis: { title: "Price in Euro" },
+                  autosize: true,
+                  margin: { l: 40, r: 20, t: 40, b: 50 }, // Adjust margins for better mobile view
+              }}
+              style={{ width: "90%", maxWidth: "100%", height: "300px" }} // Adjust height for mobile
+              config={{ responsive: true }}
+          />
       <InfoTable title={productData.title} minPrice={Math.min(...data.price)} maxPrice={Math.max(...data.price)} discount={productData.discount} current_price={productData.current_price}/>
       </Container>
       {sentiment && (
@@ -122,29 +114,29 @@ export default function ProductDashboard() {
                     alignItems: "center",
                     justifyContent: "center",
                     width: "100%",
-                    // overflow: "hidden", // Ensure that content does not overflow the container
+                    padding: { xs: 2, sm: 4 }, // Add padding for better spacing
+                    overflow: "hidden", // Ensure no overflow
                 }}
             >
                 <Plot
-                data={[
-                  {
-                    labels: Object.keys(sentiment),
-                    values: Object.values(sentiment),
-                    type: "pie",
-                    mode: "lines+markers",
-                    marker: { color: "blue" },
-                    name: "GDP per Capita",
-                  },
-                ]}
-                layout={{
-                  title: "Feedback sentiment",
-                  xaxis: { title: "Country" },
-                    autosize: true, // Makes the plot responsive
-                    width: "100%", // Ensure plot adapts to the container
-                }}
-                config={{ staticPlot: false }}
-            />
-          </Container>
+                    data={[
+                        {
+                            labels: Object.keys(sentiment),
+                            values: Object.values(sentiment),
+                            type: "pie",
+                            marker: { colors: ["#1f77b4", "#ff7f0e", "#2ca02c"] }, // Example color customization
+                        },
+                    ]}
+                    layout={{
+                        title: "Feedback Sentiment",
+                        autosize: true,
+                        margin: { l: 10, r: 10, t: 40, b: 10 }, // Smaller margins for mobile
+                        height: 300, // Reduced height for mobile-friendly view
+                    }}
+                    config={{ responsive: true, staticPlot: true }}
+                    style={{ width: "90%", maxWidth: "100%", height: "auto" }} // Ensure responsive scaling
+                />
+            </Container>
         </>
       )}
       <Container>
