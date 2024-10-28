@@ -79,39 +79,22 @@ export default function ProductDashboard() {
       {productData.title}
       </Typography>
       }
-      <Container sx={{
+      <Container
+          sx={{
             display: "flex",
-            justifyContent: "space-between"
-      }}>
-        <Plot
-          data={[
-            {
-              x: data.date,
-              y: data.price,
-              type: "scatter",
-              mode: "lines+markers",
-              marker: { color: "blue" },
-              name: "GDP per Capita",
-            },
-          ]}
-          layout={{
-            title: "Price History",
-            xaxis: { title: "Date" },
-            yaxis: { title: "Price in Euro" },
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            // overflow: "hidden", // Ensure that content does not overflow the container
           }}
-          config={{ staticPlot: false }}
-        />
-      <InfoTable title={productData.title} minPrice={Math.min(...data.price)} maxPrice={Math.max(...data.price)} discount={productData.discount} current_price={productData.current_price}/>
-      </Container>
-      {sentiment && (
-        <>
-          <h2>Sentiment pie</h2>
-          <Plot
+      >
+        <Plot
             data={[
               {
-                labels: Object.keys(sentiment),
-                values: Object.values(sentiment),
-                type: "pie",
+                x: data.date,
+                y: data.price,
+                type: "scatter",
                 mode: "lines+markers",
                 marker: { color: "blue" },
                 name: "GDP per Capita",
@@ -119,17 +102,57 @@ export default function ProductDashboard() {
             ]}
             layout={{
               title: "Price History",
-              xaxis: { title: "Country" },
+              xaxis: { title: "Date" },
+              yaxis: { title: "Price in Euro" },
+              autosize: true, // Makes the plot responsive
+              width: "100%", // Ensure plot adapts to the container
             }}
-            config={{ staticPlot: false }}
-          />
+            style={{ width: "100%", maxWidth: "90vw", height: "400px" }} // Set maxWidth to limit the overflow
+            config={{ responsive: true }} // Enable responsive configuration
+        />
+      <InfoTable title={productData.title} minPrice={Math.min(...data.price)} maxPrice={Math.max(...data.price)} discount={productData.discount} current_price={productData.current_price}/>
+      </Container>
+      {sentiment && (
+        <>
+          <h2>Sentiment pie</h2>
+            <Container
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "100%",
+                    // overflow: "hidden", // Ensure that content does not overflow the container
+                }}
+            >
+                <Plot
+                data={[
+                  {
+                    labels: Object.keys(sentiment),
+                    values: Object.values(sentiment),
+                    type: "pie",
+                    mode: "lines+markers",
+                    marker: { color: "blue" },
+                    name: "GDP per Capita",
+                  },
+                ]}
+                layout={{
+                  title: "Feedback sentiment",
+                  xaxis: { title: "Country" },
+                    autosize: true, // Makes the plot responsive
+                    width: "100%", // Ensure plot adapts to the container
+                }}
+                config={{ staticPlot: false }}
+            />
+          </Container>
         </>
       )}
+      <Container>
+        {relatedProducts &&
 
-      {relatedProducts &&
-      
-      <ProductCategory elevation={1} title={""} productArr={relatedProducts} handleClick={() => {}} />
-      }
+            <ProductCategory elevation={1} title={"Related products"} productArr={relatedProducts} handleClick={() => {}} />
+        }
+      </Container>
     </>
   );
 }
