@@ -57,7 +57,7 @@ export default function ProductCard({data, handleClick}) {
           variant="h5"
           color="text.primary"
         >
-          -{parseInt(data.discount)}%, {data.current_price}
+          { data.discount && "-" + parseInt(data.discount)+ "%,"} {data.current_price > 0 && data.current_price}
         </Typography>
           <Button onClick={() => {
               router.push(`/data/${data.id}`)
