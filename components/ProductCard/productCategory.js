@@ -1,12 +1,9 @@
 import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
-
-import Button from '@mui/material/Button';
-import { useRouter } from 'next/router';
 import ProductCard from './productCard'
 
 export default function ProductCategory({elevation, title, productArr, handleClick}) {
-  const router = useRouter();
+
 
   return (
     <>
@@ -16,6 +13,7 @@ export default function ProductCategory({elevation, title, productArr, handleCli
           flexDirection: "row",
           alignItems: "center",
           flexWrap: "wrap",
+            justifyContent: "space-between",
           pb: { xs: 8, sm: 12 },
         }}
       >
@@ -33,9 +31,6 @@ export default function ProductCategory({elevation, title, productArr, handleCli
                   elevation={elevation}
                 >
                   <ProductCard data={data} handleClick={handleClick}/>
-                  <Button onClick={() => {
-                        router.push(`/data/${data.id}`)
-                      }} variant="contained">Price data</Button>
                 </Paper>
               );
             })
