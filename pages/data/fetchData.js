@@ -85,3 +85,11 @@ export const fetchPriceHIstory = async (setData, productId) => {
       return responseData;
     }
   };
+
+
+  // #TODO:  Move this to API route or anywhere outside the pages folder! 
+  export default function required()
+  {
+    return <>This is a required component!</>;
+  };
+  
