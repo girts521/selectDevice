@@ -18,30 +18,8 @@ export default function ProductDashboard() {
   const [data, setData] = React.useState({ price: [], date: [] });
   const [sentiment, setSentiment] = React.useState(null);
   const [relatedProdArray, setRelatedProdArray] = React.useState([]);
-  const [productData, setProductData] = React.useState({
-    title: "",
-    current_price: 0,
-    discount: 0,
-    image: "",
-    date_last_update: "",
-    brand: "",
-    search_term: "",
-    rating: "",
-    review_count: 0,
-    sentiment: "",
-  });
-  const [relatedProducts, setRelatedProducts] = React.useState([{
-    title: "",
-    current_price: 0,
-    discount: 0,
-    image: "",
-    date_last_update: "",
-    brand: "",
-    search_term: "",
-    rating: "",
-    review_count: 0,
-    sentiment: "",
-  }]);
+  const [productData, setProductData] = React.useState({});
+  const [relatedProducts, setRelatedProducts] = React.useState([]);
 
   React.useEffect(() => {
     if (router.isReady) {
