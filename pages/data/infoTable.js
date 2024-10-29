@@ -22,16 +22,16 @@ export default function InfoTable({title, current_price, discount, minPrice, max
       <Table  aria-label="customized table">
         <TableBody>
           <TableRow key={"title"}>
-            <TableCell component="th" scope="row">
+            <TableCell style={{width:"50%"}} component="th" scope="row">
               {lang === "EN" && "Title"}  
               {lang === "DE" && "Titel"}
               {lang === "VN" && "Tiêu đề"}            
               </TableCell>
-            <TableCell align="right">{title}</TableCell>
+            <TableCell style={{width:"50%"}} align="right">{title}</TableCell>
           </TableRow>
         
           <TableRow key={"current_price"}>
-            <TableCell component="th" scope="row">
+            <TableCell style={{width:"50%"}} component="th" scope="row">
               {lang === "EN" && "Current Price"}  
               {lang === "DE" && "Aktueller Preis"}
               {lang === "VN" && "Giá Hiện tại"}    
@@ -49,7 +49,7 @@ export default function InfoTable({title, current_price, discount, minPrice, max
           </TableRow>
 
           <TableRow key={"max-price"}>
-            <TableCell component="th" scope="row">
+            <TableCell style={{width:"50%"}} component="th" scope="row">
               {lang === "EN" && "Highest price so far"}  
               {lang === "DE" && "Höchster Preis bisher"}
               {lang === "VN" && "Giá cao nhất cho đến nay"}   
@@ -58,14 +58,13 @@ export default function InfoTable({title, current_price, discount, minPrice, max
           </TableRow>
 
           <TableRow key={"min-price"}>
-            <TableCell component="th" scope="row">
+            <TableCell style={{width:"50%"}} component="th" scope="row">
               {lang === "EN" && "Lowest price so far"}  
               {lang === "DE" && "Niedrigster Preis bisher"}
               {lang === "VN" && "Giá thấp nhất cho đến nay"}   
             </TableCell>
             <TableCell align="right">{minPrice} €</TableCell>
           </TableRow>
-
         </TableBody>
       </Table>
     </TableContainer>
