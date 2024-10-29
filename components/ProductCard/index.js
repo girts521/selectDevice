@@ -41,7 +41,7 @@ export default function ProductCard() {
           mb: "35px",
         }}
       >
-        Top deals Today!
+        Top deals!
       </Typography>
      <ProductCategory elevation={elevation} title={""} productArr={products} handleClick={handleClick} />
     </>
