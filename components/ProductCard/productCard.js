@@ -12,6 +12,7 @@ import * as React from "react";
 export default function ProductCard({data, handleClick}) {
     const router = useRouter();
     const [elevation, setElevation] = React.useState(1);
+    console.log("Data:", data);
   return (
       <Paper
           onMouseEnter={() => setElevation(4)}
@@ -61,7 +62,7 @@ export default function ProductCard({data, handleClick}) {
         </Typography>
           <Button onClick={() => {
               router.push(`/data/${data.id}`)
-          }} variant="contained">Price data</Button>
+          }} variant="contained">Info</Button>
       </CardContent>
     </Card>
       </Paper>

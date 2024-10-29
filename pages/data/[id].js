@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import InfoTable from "./infoTable"
 import ProductCategory from "../../components/ProductCard/productCategory"
 import Image from "next/image";
+import { LanguageContext } from "../../context/LanguageContext";
 
 const Plot = dynamic(() => import("react-plotly.js"), { ssr: false });
 import {fetchPriceHIstory, fetchSentimentData, fetchProductData, fetchRelatedProducts} from "./fetchData"
@@ -20,6 +21,7 @@ export default function ProductDashboard() {
   const [relatedProdArray, setRelatedProdArray] = React.useState([]);
   const [productData, setProductData] = React.useState({});
   const [relatedProducts, setRelatedProducts] = React.useState([]);
+  const { lang, setLang } = React.useContext(LanguageContext);
 
   React.useEffect(() => {
     if (router.isReady) {
@@ -40,7 +42,15 @@ export default function ProductDashboard() {
         setRelatedProducts((prevProducts) => [...prevProducts, product]);
       })
     }
+    const langCheck = localStorage.getItem("lang");
+    setLang(langCheck);
   }, [relatedProdArray])
+
+  const handleClick = (e, url) => {
+    e.preventDefault();
+    router.push(url);
+  };
+
 
   return (
     <>
@@ -86,7 +96,11 @@ export default function ProductDashboard() {
             <h2 style={{
                 textAlign: "center",
                 marginBottom: 7
-            }}>Price history</h2>
+            }}>
+              {lang === "EN" && "Price history"}  
+              {lang === "DE" && "Preisverlauf"}
+              {lang === "VN" && "Lịch sử giá"}
+              </h2>
             <Plot
                 data={[{
                     x: data.date,
@@ -109,8 +123,12 @@ export default function ProductDashboard() {
                 textAlign: "center",
                 marginTop: 5
             }}>
-              Information is collected daily from amazon, but only the products that currently have a discount are viewed. Thus, in the graph above the price is displayed
-              from days when the product was viewed and had a discount.
+              {lang === "EN" && "Information is collected daily from amazon, but only the products that currently have a discount are viewed. Thus, in the graph above the price is displayed \
+              from days when the product was viewed and had a discount."}  
+              {lang === "DE" && "Informationen werden täglich von Amazon gesammelt, jedoch werden nur Produkte betrachtet, \
+              die aktuell einen Rabatt haben. Daher zeigt das obige Diagramm den Preis an den Tagen an, an denen das Produkt mit Rabatt betrachtet wurde."}
+              {lang === "VN" && "Thông tin được thu thập hàng ngày từ Amazon, nhưng chỉ những sản phẩm đang giảm giá mới được xem xét. Do đó, trên biểu đồ \
+              trên, giá hiển thị là từ những ngày sản phẩm được xem và có giảm giá."}
             </Typography>
         </Container>
         {sentiment && (
@@ -118,7 +136,11 @@ export default function ProductDashboard() {
                 <h2 style={{
                     textAlign: "center",
                     marginBottom: 7
-          }}>Sentiment pie</h2>
+          }}>
+             {lang === "EN" && "Customer sentiment"}  
+             {lang === "DE" && "Kundenstimmung"}  
+             {lang === "VN" && "Phân Tích Cảm Xúc Khách Hàng"}  
+          </h2>
             <Container
                 sx={{
                     display: "flex",
@@ -152,20 +174,28 @@ export default function ProductDashboard() {
                     textAlign: "center",
                     marginTop: 5
                 }}>
-                    Sentiment is based on the feedback provided by the customers on amazon product page. The sentiment of each comment is analyzed using a special AI model, that provides the score from 5 to 1, where
-                    5 means very positive and 1 very negative. The actual feedback is not collected, you can view it on amazon.
+                  {lang === "EN" && "Sentiment is based on the feedback provided by the customers on amazon product page. The sentiment of each comment is analyzed using a special AI model, that provides the score from 5 to 1, where \
+                    5 means very positive and 1 very negative. The actual feedback is not collected, you can view it on amazon."}  
+                  {lang === "DE" && "Die Stimmung basiert auf dem Feedback der Kunden auf der Amazon-Produktseite. Die Stimmung jedes Kommentars wird mit einem speziellen KI-Modell analysiert, das eine Bewertung von 5 bis 1 vergibt, \
+                  wobei 5 für sehr positiv und 1 für sehr negativ steht. Das eigentliche Feedback wird nicht erfasst; Sie können es auf Amazon einsehen."}  
+                  {lang === "VN" && "Cảm xúc được dựa trên phản hồi của khách hàng trên trang sản phẩm Amazon. Cảm xúc của mỗi nhận xét được phân tích bằng một mô hình AI đặc biệt, cung cấp điểm từ 5 đến 1, trong đó 5 là rất tích \
+                  cực và 1 là rất tiêu cực. Phản hồi thực tế không được thu thập; bạn có thể xem nó trên Amazon."}  
                 </Typography>
             </Container>
         </>
       )}
       <Container>
-        {relatedProducts &&
+        {relatedProducts.length > 1 &&
             <>
                 <h2 style={{
                     textAlign: "center",
                     marginBottom: 25
-                }}>Similar products</h2>
-            <ProductCategory elevation={1} title={"Related products"} productArr={relatedProducts} handleClick={() => {}} />
+                }}>
+              {lang === "EN" && "Similar products"}  
+             {lang === "DE" && "Ähnliche Produkte"}  
+             {lang === "VN" && "Sản phẩm Tương tự"}  
+                </h2>
+            <ProductCategory elevation={1} title={"Related products"} productArr={relatedProducts} handleClick={handleClick} />
             </>
         }
       </Container>

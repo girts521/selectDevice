@@ -68,7 +68,7 @@ export const fetchPriceHIstory = async (setData, productId) => {
     );
     if (response.status != 404) {
       const responseData = await response.json();
-      // console.log("response from product: ", responseData.title);
+      console.log("response from product: ", responseData);
       setProductData({
         title: responseData.title,
         current_price: responseData.current_price,
