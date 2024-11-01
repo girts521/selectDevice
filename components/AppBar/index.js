@@ -63,7 +63,7 @@ export default function My_AppBar() {
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               <Link color={"inherit"} underline="none" href="/">
-                My Tech Finder
+                My Deals Finder
               </Link>
             </Typography>
             <Box sx={{ minWidth: 120 }}>

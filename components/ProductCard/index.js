@@ -32,6 +32,7 @@ export default function ProductCard() {
     <>
       <Typography
         variant="h1"
+        id="target"
         sx={{
           display: "flex",
           flexDirection: { xs: "column", md: "column" },
@@ -39,6 +40,7 @@ export default function ProductCard() {
           textAlign: "center",
           fontSize: "clamp(3.5rem, 10vw, 4rem)",
           mb: "35px",
+          color: "#1A1A33"
         }}
       >
         Top deals!

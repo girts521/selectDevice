@@ -16,11 +16,20 @@ export default function Hero() {
     router.push('/form')
   }
   const { lang, setLang } = React.useContext(LanguageContext);
+  const [targetElement, setTarget] = React.useState(null);
+
 
   React.useEffect(() => {
     const langCheck = localStorage.getItem("lang")
-   setLang(langCheck)
+   setLang(langCheck);
+   setTarget(document.getElementById('target'));
   }, [])
+
+    const handleScroll = () => {
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
 
   return (
     <Box
@@ -44,7 +53,7 @@ export default function Hero() {
           pb: { xs: 8, sm: 12 },
         }}
       >
-        <Stack spacing={2} useFlexGap sx={{ width: { xs: '100%', sm: '70%' } }}>
+        <Stack spacing={2} useFlexGap sx={{ width: { xs: '100%', sm: '90%' } }}>
           <Typography
             variant="h1"
             sx={{
@@ -53,12 +62,30 @@ export default function Hero() {
               alignSelf: 'center',
               textAlign: 'center',
               fontSize: 'clamp(3.5rem, 10vw, 4rem)',
+              color: "#1A1A33"
             }}
           >
-           { lang === "EN" && "Find your new\u00a0" }
+           { lang === "EN" && "Need a New Device?\u00a0" }
            { lang === "DE" && "Finden Sie Ihr Neues\u00a0" }
            { lang === "VN" && "Tìm kiếm của bạn mới\u00a0" }
-            <Typography
+           </Typography>
+           <Typography
+            variant="h1"
+            sx={{
+              display: 'flex',
+              flexDirection: { xs: 'column', md: 'column' },
+              alignSelf: 'center',
+              textAlign: 'center',
+              fontSize: 'clamp(2.5rem, 10vw, 3rem)',
+              color: "#1A1A33",
+            }}
+          >
+           { lang === "EN" && "Get Tailored Picks & Top Amazon Deals!\u00a0" }
+           { lang === "DE" && "Erhalten Sie maßgeschneiderte Empfehlungen und Top-Angebote bei Amazon!\u00a0" }
+           { lang === "VN" && "Nhận các gợi ý phù hợp & các ưu đãi hàng đầu trên Amazon!\u00a0" }
+           </Typography>
+
+            {/* <Typography
               component="span"
               variant="h1"
               sx={{
@@ -68,16 +95,15 @@ export default function Hero() {
               }}
             >
                <Typewriter words={['Phone!', 'Laptop!']} loop={false} cursor />
-            </Typography>
-          </Typography>
+            </Typography> */}
           <Typography
             textAlign="center"
             color="text.primary"
-            sx={{ alignSelf: 'center', width: { sm: '100%', md: '80%' } }}
+            sx={{ alignSelf: 'center', width: { sm: '100%', md: '80%' },  fontSize: 'clamp(1rem, 5vw, 1.5rem)', color: "#333333"}}
           >
-            {lang === "EN" && "Answer a few basic questions and my algorithm will offer you a few matching devices. You can just pick any of them up and be done! Sounds easy, right?"}
-            {lang === "DE" && "Beantworten Sie ein paar grundlegende Fragen und mein Algorithmus wird Ihnen einige passende Geräte vorschlagen. Sie können sich einfach eines davon aussuchen und haben es geschafft! Klingt einfach, oder?"}
-            {lang === "VN" && "Trả lời một vài câu hỏi cơ bản và thuật toán của tôi sẽ đề xuất một số thiết bị phù hợp. Bạn chỉ cần chọn bất kỳ thiết bị nào đó và hoàn thành! Công việc đơn giản, phải không?"}
+            {lang === "EN" && "Looking for the right laptop or phone? Answer a few quick questions about your needs, and we’ll recommend the best options tailored just for you. Or, explore our curated list of Amazon’s top deals on popular products with huge discounts and great reviews. Find the perfect device and save big with MyDealsFinder!"}
+            {lang === "DE" && "Suchen Sie den richtigen Laptop oder das richtige Handy? Beantworten Sie ein paar kurze Fragen zu Ihren Bedürfnissen, und wir empfehlen Ihnen die besten Optionen, die genau auf Sie zugeschnitten sind. Oder stöbern Sie in unserer kuratierten Liste der besten Amazon-Angebote für beliebte Produkte mit hohen Rabatten und großartigen Bewertungen. Finden Sie das perfekte Gerät und sparen Sie viel mit MyDealsFinder!"}
+            {lang === "VN" && "Bạn đang tìm kiếm chiếc laptop hoặc điện thoại phù hợp? Trả lời nhanh vài câu hỏi về nhu cầu của bạn, và chúng tôi sẽ đề xuất những lựa chọn tốt nhất được cá nhân hóa chỉ dành cho bạn. Hoặc, khám phá danh sách các ưu đãi hàng đầu trên Amazon với sản phẩm phổ biến, giảm giá lớn và đánh giá cao. Tìm thiết bị hoàn hảo và tiết kiệm lớn với MyDealsFinder!"}
           </Typography>
           <Stack
             direction={{ xs: 'column', sm: 'row' }}
@@ -87,15 +113,20 @@ export default function Hero() {
             sx={{ pt: 2, width: { xs: '100%', sm: 'auto' } }}
           >
             <Button onClick={clickHandler} variant="contained" color="primary">
-            {lang === "EN" && "Start now"}
-            {lang === "DE" && "Jetzt starten"}
-            {lang === "VN" && "Bắt đầu ngay bây giờ"}
+            {lang === "EN" && "Find My Device"}
+            {lang === "DE" && "Mein Gerät finden"}
+            {lang === "VN" && "Tìm thiết bị của tôi"}
+            </Button>
+            <Button onClick={handleScroll} variant="contained" color="primary">
+            {lang === "EN" && "Find My Deals"}
+            {lang === "DE" && "Meine Angebote finden"}
+            {lang === "VN" && "Tìm các ưu đãi của tôi"}
             </Button>
           </Stack>
           <Typography variant="caption" textAlign="center" sx={{ opacity: 0.8 }}>
-           {lang === "EN" && 'By clicking "Start now" you agree to our'}
-           {lang === "DE" && 'Durch Klicken auf "Jetzt starten" stimmen Sie zu:'}
-           {lang === "VN" && 'Bằng cách nhấp vào "Bắt đầu ngay bây giờ", bạn đồng ý với:'}
+           {lang === "EN" && 'By using the website you agree to our'}
+           {lang === "DE" && 'Durch die Nutzung der Website stimmen Sie unseren:'}
+           {lang === "VN" && 'Bằng cách sử dụng trang web, bạn đồng ý với:'}
             <Link href="/tos" color="primary">
               {lang === "EN" && "Terms & Conditions"}
               {lang === "DE" && "Nutzungsbedingungen"}

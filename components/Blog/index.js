@@ -40,6 +40,7 @@ export default function Blog() {
             alignSelf: "center",
             textAlign: "center",
             fontSize: "clamp(1.5rem, 10vw, 2rem)",
+            color: "#333333"
           }}
         >
           {lang === "EN" && "Not really\u00a0sure what you need?"}
@@ -54,6 +55,7 @@ export default function Blog() {
             alignSelf: "center",
             textAlign: "center",
             fontSize: "clamp(1.5rem, 10vw, 2rem)",
+            color: "#333333"
           }}
         >
           {lang === "EN" && "Read one of my articles and find out!"}
